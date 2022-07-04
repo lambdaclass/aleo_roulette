@@ -1,0 +1,8 @@
+// The program input for bets/src/main.leo
+[main]
+bet_number: field = 4;
+spin_count: u32 = 0;
+
+[registers]
+win: bool = false;
+ 
