@@ -14,7 +14,7 @@ function main(bet_number: field, rand_seed: field, rand_bit_field: [bool;254]) -
 function spin_roulette_from_rand_bit_field(rand_bit_field: [bool;254]) -> u32{
     let rand_six_bits: u32 = six_bits_int_from_bitfield(rand_bit_field);
     // Modulus 32 operator
-    return rand_six_bits - (rand_six_bits / 32 * 32);
+    return rand_six_bits - (rand_six_bits / 37 * 37);
 }
 
 function six_bits_int_from_bitfield(bit_field: [bool;254]) -> u32 {
