@@ -1,9 +1,10 @@
-
-
-#number = number + bit_field[254]*1;
-#number = number + bit_field[253]*2;
-#number = number + bit_field[252]*4;
-print("Convert bit field to field code")
+print("Convert bit field to field - Aleo code")
+#Here the output is:
+#number = number + bit_field[253]*1;
+#number = number + bit_field[252]*2;
+#number = number + bit_field[251]*4;
+#...
+#number = number + bit_field[0]*2**253;
 for i in range(254):
     a = 254-i
     b = 2**i
