@@ -11,4 +11,3 @@ rand_seed: field = 789623981623;
 
 [registers]
 win: bool = false;
- 
