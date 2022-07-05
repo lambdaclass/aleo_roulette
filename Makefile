@@ -1,6 +1,6 @@
 init:
 	cargo install leo-lang
-	npm install --prefix fron
+	npm install --prefix front
 
 nix_shell:
 	nix-shell

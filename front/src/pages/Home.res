@@ -1,4 +1,4 @@
 @react.component
 let make = () => {
-  <> <h1> {"Aleo Roulette"->React.string} </h1> </>
+  <div> <h1> {"ALEO ROULETTE"->React.string} </h1> <Button /> </div>
 }
