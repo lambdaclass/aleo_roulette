@@ -13,6 +13,7 @@ mkShell {
     git
     nixpkgs.rust-bin.stable."1.56.0".default
     nodejs-16_x
+    curl
   ]
   ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
     # For file_system on macOS.
