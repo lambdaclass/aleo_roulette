@@ -1,6 +1,8 @@
 init:
 	cargo install leo-lang
-	npm install --prefix fron
+	mix local.hex && mix archive.install hex phx_new
+	cd api && mix deps.get && mix deps.compile
+	npm install --prefix front --silent
 
 nix_shell:
 	nix-shell
@@ -8,13 +10,18 @@ nix_shell:
 build:
 	@echo "👷 * Aleo Roulette building process started *"
 	@echo "========================================="
-	@echo "🔨 1/1 Building the Frontend..."
+	@echo "🔨 1/2 Building the Frontend..."
 	npm install --prefix front --silent 
 	npm run re:build --prefix front
+	@echo "🔨 2/2 Building the API..."
+	cd api && mix deps.get && mix deps.compile && mix compile
 	@echo "==================================================="
 	@echo "✅ Aleo Roulette building process finished sucessfully!"
 
 run_front:
 	npm run re:build --prefix front
 	PORT=4000 npm start --prefix front
+
+run_api:
+	cd api && PORT=5000 mix phx.server
 
