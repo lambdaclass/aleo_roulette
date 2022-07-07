@@ -1,13 +1,17 @@
 body {
   background-image: url(/public/images/background.jpeg);
 }
-h1 {
+h1,
+h2,
+p {
   font-family: sans-serif;
   text-align: center;
   color: white;
+}
+h1 {
+  padding: 0.8rem 0;
   width: 100%;
   background-color: hsla(0, 0%, 0%, 0.5);
-  padding: 0.8rem 0;
 }
 .roulette-container {
   position: relative;
@@ -77,4 +81,55 @@ h1 {
 }
 .spin:hover {
   background: #ab7d63;
+}
+.table {
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+.table p {
+  width: 4rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0.75rem 0;
+  background-color: rgb(0, 0, 0);
+  border: 1px solid rgb(224, 222, 100);
+  transition: all 250ms ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  -moz-transition: all 250ms ease-in-out;
+  -ms-transition: all 250ms ease-in-out;
+  -o-transition: all 250ms ease-in-out;
+}
+.table p:hover {
+  background-color: rgb(163, 72, 72);
+}
+.win-txt {
+  height: 2rem;
+  padding: 0.75rem;
+  font-size: 1.5rem;
+  background-color: black;
+}
+.rotate-roulette {
+  animation: rotation-roulette 4900ms ease-in-out;
+  -webkit-animation: rotation-roulette 4900ms ease-in-out;
+}
+@keyframes rotation-roulette {
+  0% {
+    transform: translateX(-50%) rotate(0deg);
+    -webkit-transform: translateX(-50%) rotate(0deg);
+    -moz-transform: translateX(-50%) rotate(0deg);
+    -ms-transform: translateX(-50%) rotate(0deg);
+    -o-transform: translateX(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) rotate(-360deg);
+    -webkit-transform: translateX(-50%) rotate(-360deg);
+    -moz-transform: translateX(-50%) rotate(-360deg);
+    -ms-transform: translateX(-50%) rotate(-360deg);
+    -o-transform: translateX(-50%) rotate(-360deg);
+  }
 }
