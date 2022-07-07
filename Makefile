@@ -3,7 +3,7 @@ init:
 	mix local.hex && mix archive.install hex phx_new
 	cd api && mix deps.get && mix deps.compile
 	npm install --prefix front --silent
-
+  
 nix_shell:
 	nix-shell
 

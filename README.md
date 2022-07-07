@@ -18,7 +18,11 @@ To build the project:
 
 `make build`
 
-to run the Frontend:
+To run the API:
+
+`make run_api`
+
+To run the Frontend:
 
 `make run_front`
 
