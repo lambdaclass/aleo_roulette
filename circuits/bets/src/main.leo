@@ -5,7 +5,7 @@ import type_casting.*;
 //rand_bit_field is the factorization of the poseidon hash of the rand_seed
 function main(bets: [i16;38], rand_seed: field, rand_bit_field: [field;254]) -> i16 {
     const AMOUNT_OF_POSSIBLE_OUTCOMES: u32 = 38;
-    const ERROR_CODE i16 = -32768;
+    const ERROR_CODE: i16 = -32768;
 
     let calculated_rand_fe = poseidon(rand_seed, rand_seed);
     let derived_rand_fe = field_from_bitfield(rand_bit_field);
