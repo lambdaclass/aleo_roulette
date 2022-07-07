@@ -7,5 +7,10 @@ defmodule AleoRouletteApiWeb.Router do
 
   scope "/api", AleoRouletteApiWeb do
     pipe_through :api
+
+    scope "/bets" do
+      post "/make", BetController, :make
+    end
+
   end
 end
