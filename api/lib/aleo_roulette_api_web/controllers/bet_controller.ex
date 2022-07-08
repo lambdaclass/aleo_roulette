@@ -46,11 +46,28 @@ defmodule AleoRouletteApiWeb.BetController do
     "[" <> padded_string <> "]"
   end
 
+  def bets_to_leo_input(bet_number, credits) do
+    bet_number = String.to_integer(bet_number)
+    base_string = "[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]"
+    String.slice(base_string,0..((bet_number - 1) * 3)) <> credits <>  String.slice(base_string,bet_number * 3 + 1 + String.length(credits)..-1)
+  end
+
   def wait_for_leo_poseidon() do
     :timer.sleep(500)
     case File.stat("../circuits/poseidon/outputs/poseidon.sum") do
       {:enoent, _} -> wait_for_leo_poseidon()
       _ -> ""
     end
+  end
+
+  @spec generate_roulette_leo_input(any, any, any, any) :: <<_::64, _::_*8>>
+  def generate_roulette_leo_input(bet_number, credits, seed, bit_field) do
+      "[main]
+bets: [i16; 38] = [0, 0, 8, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+rand_bit_field: [field; 254] = #{bit_field};
+rand_seed: field = 789623981623;
+
+[registers]
+user_earnt_or_lost_credits: i16 = 0;"
   end
 end
