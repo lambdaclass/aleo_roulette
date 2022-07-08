@@ -3,7 +3,13 @@ init:
 	mix local.hex && mix archive.install hex phx_new
 	cd api && mix deps.get && mix deps.compile
 	npm install --prefix front --silent
-  
+
+ops:
+	redis-server --daemonize yes
+
+stop: 
+	redis-cli shutdown
+
 nix_shell:
 	nix-shell
 
