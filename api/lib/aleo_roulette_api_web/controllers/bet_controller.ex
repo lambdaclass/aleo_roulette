@@ -14,18 +14,36 @@ defmodule AleoRouletteApiWeb.BetController do
 
     wait_for_leo_poseidon()
 
-    result = File.read!("../circuits/poseidon/outputs/poseidon.out")
+    poseidon_result = File.read!("../circuits/poseidon/outputs/poseidon.out")
       |> String.split("= ")
       |> List.last()
       |> String.split(";")
       |> List.first()
 
+    poseidon_bit_decomposition =
+      String.to_integer(poseidon_result)
+      |> Integer.to_string(2)
+    # Format bit list to Leo Input
+    IO.inspect(bit_list_to_leo_input(poseidon_bit_decomposition))
+
+    :os.cmd(:"cd ../circuits/bets && leo clean && leo run")
+
+    wait_for_leo_poseidon()
+
     conn
-    |> render("make.json", bet_make: result)
+    |> render("make.json", bet_make: poseidon_result)
   end
 
   def leo_poseidon_input_string(random_seed) do
     "[main]\nfe: field = #{random_seed};\n\n[registers]\nr0: field = 0;\n"
+  end
+
+  def bit_list_to_leo_input(bit_list) do
+    padded_string = String.pad_leading(bit_list, 254, "0")
+    padded_string = Regex.replace(~r/1/,padded_string,"1,")
+    padded_string = Regex.replace(~r/0/,padded_string,"0,")
+    padded_string = String.slice(padded_string, 0..-2)
+    "[" <> padded_string <> "]"
   end
 
   def wait_for_leo_poseidon() do
