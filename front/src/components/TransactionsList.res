@@ -11,10 +11,5 @@ let make = (~win, ~transactions: array<Transaction.t>) => {
     </div>
   })
 
-  <div className="transaction-container">
-    <p className="win-txt" style={ReactDOM.Style.make(~display=win ? "initial" : "none", ())}>
-      {React.string(win ? "te pagan" : "pagaste")}
-    </p>
-    {React.array(content)}
-  </div>
+  <div className="transaction-container"> {React.array(content)} </div>
 }

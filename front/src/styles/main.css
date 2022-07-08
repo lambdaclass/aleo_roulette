@@ -4,7 +4,6 @@ body {
   padding: 0 !important;
 }
 body {
-  /* background-image: url(/public/images/background.jpeg); */
   color: white;
   font-family: sans-serif;
   background-color: #3c8464;
@@ -21,9 +20,9 @@ h2 {
   margin: 0 !important;
 }
 h1 {
-  padding: 2rem 0;
+  padding: 1rem 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(23, 55, 43, 0.9);
 }
 h2 {
   font-size: 1rem;
@@ -38,17 +37,21 @@ h2 {
 }
 .action-panel {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(23, 55, 43, 0.9);
   position: fixed;
   bottom: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: 1rem;
-  padding: 2rem 3rem;
+  padding: 1.5rem;
+}
+.transaction-label {
+  width: 100%;
+  padding: 0 1rem;
 }
 .transaction-container {
-  width: 100%;
+  margin-top: 1rem;
   height: 8vh;
   overflow-y: auto;
 }
@@ -142,14 +145,14 @@ input {
   height: 12rem;
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
 }
 .table div:first-of-type {
   grid-row: 1 / -1;
   height: 100%;
 }
 .table div:first-of-type div {
-  background-color: transparent !important;
+  background-color: green !important;
 }
 .table div div {
   width: 3rem;
@@ -165,11 +168,15 @@ input {
   -ms-transition: all 250ms ease-in-out;
   -o-transition: all 250ms ease-in-out;
 }
-.table div:nth-of-type(2n) div {
-  background-color: rgb(152, 21, 21);
+.table div:nth-of-type(n - 12) div,
+.table div:nth-of-type(2n + 12):nth-of-type(-n + 19) div,
+.table div:nth-of-type(n + 29):nth-of-type(-2n + 36) div {
+  background-color: rgb(23, 22, 22);
 }
-.table div:nth-of-type(2n + 1) div {
-  background-color: black;
+.table div:nth-of-type(2n - 12) div,
+.table div:nth-of-type(n + 12):nth-of-type(-2n + 19) div,
+.table div:nth-of-type(2n + 29):nth-of-type(-n + 37) div {
+  background-color: rgb(186, 59, 59);
 }
 .table div div:hover {
   background-color: rgb(163, 72, 72);

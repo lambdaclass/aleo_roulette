@@ -91,7 +91,9 @@ let make = () => {
     <Roulette playing rotateValue />
     <Table handleBet playing />
     <div className="action-panel">
-      <TransactionsList win transactions />
+      <div className="transaction-label">
+        {React.string("Transactions:")} <TransactionsList win transactions />
+      </div>
       <RouletteNumber playing rouletteNumber />
       <div className="token-button-container">
         <Token handleInputChange betToken /> <Button handleClick=handleSpin playing />
