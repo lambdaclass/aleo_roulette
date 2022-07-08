@@ -1,0 +1,5 @@
+[main]
+fe: field = 2;
+
+[registers]
+r0: field = 0;
