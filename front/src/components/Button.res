@@ -1,8 +1,8 @@
 @react.component
-let make = (~onClick, ~playing) => {
+let make = (~handleClick, ~playing) => {
   <button
     className="spin"
-    onClick
+    onClick=handleClick
     style={ReactDOM.Style.make(
       ~pointerEvents=playing ? "none" : "initial",
       ~opacity=playing ? "0" : "100%",

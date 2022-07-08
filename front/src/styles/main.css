@@ -1,29 +1,86 @@
+html,
 body {
-  background-image: url(/public/images/background.jpeg);
+  margin: 0 !important;
+  padding: 0 !important;
+}
+body {
+  /* background-image: url(/public/images/background.jpeg); */
+  color: white;
+  font-family: sans-serif;
+  background-color: #3c8464;
+}
+.screen {
+  position: relative;
+  min-height: 100vh;
 }
 h1,
-h2,
-p {
-  font-family: sans-serif;
+h2 {
+  position: absolute;
+  top: 0;
   text-align: center;
-  color: white;
+  margin: 0 !important;
 }
 h1 {
-  padding: 0.8rem 0;
+  padding: 2rem 0;
   width: 100%;
-  background-color: hsla(0, 0%, 0%, 0.5);
+  background-color: rgba(0, 0, 0, 0.9);
 }
+h2 {
+  font-size: 1rem;
+  padding: 1rem;
+}
+.roulette-table {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.action-panel {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 3rem;
+}
+.transaction-container {
+  width: 100%;
+  height: 8vh;
+  overflow-y: auto;
+}
+.transaction {
+  padding: 0 4rem;
+  display: flex;
+  gap: 1rem;
+}
+.token-button-container {
+  padding: 0 2rem;
+  display: flex;
+  gap: 0.5rem;
+}
+input {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
+}
+
 .roulette-container {
   position: relative;
-  text-align: center;
 }
 .roulette {
   display: block;
   position: absolute;
   top: 0;
   left: 50%;
-  width: 30rem;
-  height: 30rem;
+  width: 25rem;
+  height: 25rem;
   user-select: none;
   pointer-events: none;
   transform: translateX(-50%);
@@ -37,8 +94,8 @@ h1 {
   position: relative;
   top: 0;
   left: 50%;
-  width: 30rem;
-  height: 30rem;
+  width: 25rem;
+  height: 25rem;
   transition: all 5s ease-in-out;
   -webkit-transition: all 5s ease-in-out;
   -moz-transition: all 5s ease-in-out;
@@ -61,9 +118,9 @@ h1 {
   -o-border-radius: 100%;
 }
 .spin {
-  margin: 1rem auto;
-  padding: 0.75rem 1.25rem;
-  background: #9a7058;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  background: rgba(154, 112, 88, 0.9);
   color: #fff;
   font-size: 1.25rem;
   border: none !important;
@@ -77,41 +134,57 @@ h1 {
   -moz-border-radius: 0.5rem;
   -ms-border-radius: 0.5rem;
   -o-border-radius: 0.5rem;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 .spin:hover {
   background: #ab7d63;
 }
 .table {
-  margin: 0 auto;
-  width: 80%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+  height: 12rem;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
 }
-.table p {
-  width: 4rem;
+.table div:first-of-type {
+  grid-row: 1 / -1;
+  height: 100%;
+}
+.table div:first-of-type div {
+  background-color: transparent !important;
+}
+.table div div {
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: bold;
   font-size: 1.5rem;
-  margin: 0;
-  padding: 0.75rem 0;
-  background-color: rgb(0, 0, 0);
-  border: 1px solid rgb(224, 222, 100);
+  border: 1px solid white;
   transition: all 250ms ease-in-out;
   -webkit-transition: all 250ms ease-in-out;
   -moz-transition: all 250ms ease-in-out;
   -ms-transition: all 250ms ease-in-out;
   -o-transition: all 250ms ease-in-out;
 }
-.table p:hover {
+.table div:nth-of-type(2n) div {
+  background-color: rgb(152, 21, 21);
+}
+.table div:nth-of-type(2n + 1) div {
+  background-color: black;
+}
+.table div div:hover {
   background-color: rgb(163, 72, 72);
 }
 .win-txt {
-  height: 2rem;
-  padding: 0.75rem;
-  font-size: 1.5rem;
-  background-color: black;
+  width: 5rem;
+  height: 2.25rem;
+  font-size: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
 }
 .rotate-roulette {
   animation: rotation-roulette 4900ms ease-in-out;

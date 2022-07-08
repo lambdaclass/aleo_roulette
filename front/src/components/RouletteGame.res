@@ -5,9 +5,9 @@ let make = () => {
   let (rotateValue, setRotateValue) = React.useState(_ => 352)
   let (playing, setPlay) = React.useState(_ => false)
   let (bet, setBet) = React.useState(_ => 0)
+  let (betToken, setBetToken) = React.useState(() => "")
   let (rouletteNumber, setRouletteNumber) = React.useState(_ => -1)
   let (win, setWin) = React.useState(_ => false)
-
   let degreesArray = [
     352,
     216,
@@ -47,10 +47,24 @@ let make = () => {
     323,
     119,
   ]
-  let onClick = evt => {
-    let randomNumber = 9
+  let (transactions, setTransactions) = React.useState(_ => [])
+  let handleInputChange = event => {
+    let value = ReactEvent.Form.currentTarget(event)["value"]
+    setBetToken(_ => value)
+  }
+  let handleBet = betValue => {
+    setBet(prev => betValue)
+  }
+  let handleSpin = evt => {
+    let randomNumber = Js.Math.random_int(0, 36)
     let degreeSelected = degreesArray[randomNumber]
     let circleMove = Js.Math.random_int(3, 6)
+
+    let randomTransactionId =
+      "aleo1y90yg3yzs4g7q25f9nn8khuu00m8ysynxmcw8aca2d0phdx8dgpq4vw" ++
+      Belt.Int.toString(Js.Math.random_int(100, 5000))
+    let item: Transaction.t = {token: betToken, address: randomTransactionId}
+    let pushedValue = Js.Array2.push(transactions, item)
 
     setRotateValue(_prev => rotateValue - 360 * circleMove)
     setPlay(prev => !prev)
@@ -72,12 +86,16 @@ let make = () => {
       }, 5000)
     }
   }
-  <div className="roulette-container">
-    <Roulette playing />
-    <Ball playing rotateValue />
-    <RouletteNumber rouletteNumber />
+  <div className="roulette-table">
     <Win playing win />
-    <Table setBet playing />
-    <Button onClick playing />
+    <Roulette playing rotateValue />
+    <Table handleBet playing />
+    <div className="action-panel">
+      <TransactionsList win transactions />
+      <RouletteNumber playing rouletteNumber />
+      <div className="token-button-container">
+        <Token handleInputChange betToken /> <Button handleClick=handleSpin playing />
+      </div>
+    </div>
   </div>
 }

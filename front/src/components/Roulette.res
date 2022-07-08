@@ -1,5 +1,7 @@
 @react.component
-let make = (~playing) => {
+let make = (~playing, ~rotateValue) => {
   let className = "roulette " ++ (playing ? "rotate-roulette" : "")
-  <img className src="/images/roulette.png" />
+  <div className="roulette-container">
+    <img className src="/images/roulette.png" /> <Ball playing rotateValue />
+  </div>
 }
