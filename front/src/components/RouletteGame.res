@@ -56,7 +56,7 @@ let make = () => {
     setBet(prev => betValue)
   }
   let handleSpin = evt => {
-    let randomNumber = Js.Math.random_int(0, 36)
+    let randomNumber = 32
     let degreeSelected = degreesArray[randomNumber]
     let circleMove = Js.Math.random_int(3, 6)
 
@@ -88,13 +88,12 @@ let make = () => {
   }
   <div className="roulette-table">
     <Win playing win />
-    <Roulette playing rotateValue />
+    <Roulette playing rotateValue rouletteNumber />
     <Table handleBet playing />
     <div className="action-panel">
       <div className="transaction-label">
-        {React.string("Transactions:")} <TransactionsList win transactions />
+        {React.string("Transactions")} <TransactionsList win transactions />
       </div>
-      <RouletteNumber playing rouletteNumber />
       <div className="token-button-container">
         <Token handleInputChange betToken /> <Button handleClick=handleSpin playing />
       </div>

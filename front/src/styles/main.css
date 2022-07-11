@@ -1,3 +1,6 @@
+:root {
+  --darker: hsla(169, 86%, 9%, 0.9);
+}
 html,
 body {
   margin: 0 !important;
@@ -6,7 +9,7 @@ body {
 body {
   color: white;
   font-family: sans-serif;
-  background-color: #3c8464;
+  background-color: #074e3f;
 }
 .screen {
   position: relative;
@@ -22,7 +25,7 @@ h2 {
 h1 {
   padding: 1rem 0;
   width: 100%;
-  background-color: rgba(23, 55, 43, 0.9);
+  background-color: var(--darker);
 }
 h2 {
   font-size: 1rem;
@@ -37,23 +40,46 @@ h2 {
 }
 .action-panel {
   width: 100%;
-  background-color: rgba(23, 55, 43, 0.9);
+  background-color: var(--darker);
   position: fixed;
   bottom: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
   padding: 1.5rem;
 }
 .transaction-label {
-  width: 100%;
-  padding: 0 1rem;
+  position: relative;
+  padding: 0.5rem 1rem;
 }
 .transaction-container {
-  margin-top: 1rem;
-  height: 8vh;
+  position: absolute;
+  width: 80vw;
+  max-height: 50vh;
+  height: 0;
+  bottom: 175%;
+  left: 0%;
+  height: 0;
   overflow-y: auto;
+  background-color: var(--darker);
+  border-radius: 1rem 1rem 0 0;
+  -webkit-border-radius: 1rem 1rem 0 0;
+  -moz-border-radius: 1rem 1rem 0 0;
+  -ms-border-radius: 1rem 1rem 0 0;
+  -o-border-radius: 1rem 1rem 0 0;
+  transition: height 500ms ease-in-out;
+  -webkit-transition: height 500ms ease-in-out;
+  -moz-transition: height 500ms ease-in-out;
+  -ms-transition: height 500ms ease-in-out;
+  -o-transition: height 500ms ease-in-out;
+}
+.transaction-container div {
+  padding: 0 2rem;
+  margin: 1rem 0;
+}
+.transaction-label:hover .transaction-container {
+  height: 50vh !important;
 }
 .transaction {
   padding: 0 4rem;
@@ -123,8 +149,8 @@ input {
 .spin {
   padding: 0.5rem;
   font-size: 1.5rem;
-  background: rgba(154, 112, 88, 0.9);
-  color: #fff;
+  background: rgba(1, 234, 239, 0.25);
+  color: #01eaef;
   font-size: 1.25rem;
   border: none !important;
   transition: all 500ms ease-in-out;
@@ -139,7 +165,7 @@ input {
   -o-border-radius: 0.5rem;
 }
 .spin:hover {
-  background: #ab7d63;
+  border: 1px solid #fff;
 }
 .table {
   height: 12rem;
@@ -152,16 +178,38 @@ input {
   height: 100%;
 }
 .table div:first-of-type div {
-  background-color: green !important;
-}
-.table div div {
+  color: #6bea65;
+  background-color: rgba(107, 234, 101, 0.2) !important;
   width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+}
+.table > div {
+  width: 3.5rem;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
   font-size: 1.5rem;
-  border: 1px solid white;
+  border: 1px solid #eae5e5;
+}
+.table > div > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem !important;
+  border: 1px solid transparent;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
   transition: all 250ms ease-in-out;
   -webkit-transition: all 250ms ease-in-out;
   -moz-transition: all 250ms ease-in-out;
@@ -178,20 +226,47 @@ input {
 .table div:nth-of-type(2n + 29):nth-of-type(-n + 37) div {
   background-color: rgb(186, 59, 59);
 }
-.table div div:hover {
-  background-color: rgb(163, 72, 72);
+.table > div > div:hover {
+  border: 1px solid #fff;
+}
+.winner-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8rem;
+  height: 8rem;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
 }
 .win-txt {
-  width: 5rem;
-  height: 2.25rem;
-  font-size: 2rem;
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 0.5rem;
-  -webkit-border-radius: 0.5rem;
-  -moz-border-radius: 0.5rem;
-  -ms-border-radius: 0.5rem;
-  -o-border-radius: 0.5rem;
+  pointer-events: none;
+  position: absolute;
+  font-size: 3rem;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.85);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 500ms ease-in-out;
+  -webkit-transition: opacity 500ms ease-in-out;
+  -moz-transition: opacity 500ms ease-in-out;
+  -ms-transition: opacity 500ms ease-in-out;
+  -o-transition: opacity 500ms ease-in-out;
 }
 .rotate-roulette {
   animation: rotation-roulette 4900ms ease-in-out;
@@ -212,4 +287,29 @@ input {
     -ms-transform: translateX(-50%) rotate(-360deg);
     -o-transform: translateX(-50%) rotate(-360deg);
   }
+}
+.selected {
+  position: relative;
+}
+.selected:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  height: 100%;
+  background-image: url(/public/images/blueChip.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
 }
