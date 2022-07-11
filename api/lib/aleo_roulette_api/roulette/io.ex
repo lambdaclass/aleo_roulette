@@ -1,4 +1,4 @@
-defmodule AleoRouletteApi.Bets.IO do
+defmodule AleoRouletteApi.Roulette.IO do
   def leo_poseidon_input_string(random_seed) do
     "[main]\nfe: field = #{random_seed};\n\n[registers]\nr0: field = 0;\n"
   end

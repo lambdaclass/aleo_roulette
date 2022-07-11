@@ -1,10 +1,8 @@
 defmodule AleoRouletteApiWeb.BetController do
   use AleoRouletteApiWeb, :controller
-  alias AleoRouletteApi.Bets
-  alias AleoRouletteApi.Bets.IO
+  alias AleoRouletteApi.Roulette.IO
 
   def make(conn, %{"bet_number" => bet_number, "credits" => credits, "spin_number" => spin_number}) do
-    bet_make = Bets.Make.new(bet_number, credits)
 
     File.write!("../circuits/poseidon/inputs/poseidon.in",
       IO.leo_poseidon_input_string(spin_number)
