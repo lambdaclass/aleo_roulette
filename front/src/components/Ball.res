@@ -1,11 +1,10 @@
 @react.component
-let make = (~mode, ~transformValue) => {
-  let className = "ball " ++ (mode ? "stop-rotation" : "rotate")
+let make = (~playing, ~rotateValue) => {
   <div
-    className
+    className="ball"
     style={ReactDOM.Style.make(
-      ~transform="translate(-50%) rotate(" ++ Belt.Int.toString(transformValue) ++ "deg)",
-      ~transition=mode ? "0s" : "5s all ease",
+      ~transform="translate(-50%) rotate(" ++ Belt.Int.toString(rotateValue) ++ "deg)",
+      ~transition=playing ? "5s all ease" : "0s",
       (),
     )}
   />
