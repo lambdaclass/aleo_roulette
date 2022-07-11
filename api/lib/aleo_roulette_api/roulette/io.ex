@@ -1,7 +1,4 @@
 defmodule AleoRouletteApi.Roulette.IO do
-  def leo_poseidon_input_string(random_seed) do
-    "[main]\nfe: field = #{random_seed};\n\n[registers]\nr0: field = 0;\n"
-  end
 
   def bit_list_to_leo_input(bit_list) do
     padded_string = String.pad_leading(bit_list, 254, "0")
@@ -45,6 +42,12 @@ defmodule AleoRouletteApi.Roulette.IO do
   File.write!("../circuits/bets/inputs/bets.in",
     file_str
   )
+  end
+
+  def generate_poseidon_leo_input(random_seed) do
+    File.write!("../circuits/poseidon/inputs/poseidon.in",
+      "[main]\nfe: field = #{random_seed};\n\n[registers]\nr0: field = 0;\n"
+    )
   end
 
   def read_poseidon_output() do

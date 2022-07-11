@@ -1,20 +1,17 @@
 defmodule AleoRouletteApiWeb.BetController do
   use AleoRouletteApiWeb, :controller
   alias AleoRouletteApi.Roulette.IO
+  alias AleoRouletteApi.Roulette.Model
+  alias AleoRouletteApi.Roulette.Helper
 
   def make(conn, %{"bet_number" => bet_number, "credits" => credits, "spin_number" => spin_number}) do
 
-    File.write!("../circuits/poseidon/inputs/poseidon.in",
-      IO.leo_poseidon_input_string(spin_number)
-    )
-
+    IO.generate_poseidon_leo_input(spin_number)
     :os.cmd(:"cd ../circuits/poseidon && leo clean && leo run")
     IO.wait_for_leo_poseidon()
-    poseidon_result = IO.read_poseidon_output()
 
-    poseidon_bit_decomposition =
-      String.to_integer(poseidon_result)
-      |> Integer.to_string(2)
+    poseidon_result = IO.read_poseidon_output()
+    poseidon_bit_decomposition = Helper.poseidon_hash_to_bit_string(poseidon_result)
 
     IO.generate_roulette_leo_input(bet_number,credits,spin_number,poseidon_bit_decomposition)
     :os.cmd(:"ls && cd ../circuits/bets && leo clean && leo run")
@@ -22,8 +19,8 @@ defmodule AleoRouletteApiWeb.BetController do
     {credits_int, _} = Integer.parse(credits)
     {poseidon_int, _} = Integer.parse(poseidon_result)
     {bet_number_int, _} = Integer.parse(bet_number)
-    spin_result = rem(poseidon_int, 38)
-    new_balance = if spin_result == bet_number_int, do:  credits_int*36, else: -credits_int
+
+    {spin_result, new_balance} = Model.run_roulette_game(poseidon_int, bet_number_int, credits_int)
 
     IO.wait_for_leo_roulette()
 
