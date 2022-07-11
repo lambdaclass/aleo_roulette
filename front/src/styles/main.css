@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap");
 :root {
   --darker: hsla(169, 86%, 9%, 0.9);
 }
@@ -8,7 +9,7 @@ body {
 }
 body {
   color: white;
-  font-family: sans-serif;
+  font-family: "Inter", sans-serif;
   background-color: #074e3f;
 }
 .screen {
@@ -30,6 +31,7 @@ h1 {
 h2 {
   font-size: 1rem;
   padding: 1rem;
+  font-weight: normal;
 }
 .roulette-table {
   position: relative;
@@ -47,20 +49,28 @@ h2 {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 1.5rem;
 }
 .transaction-label {
   position: relative;
-  padding: 0.5rem 1rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.transaction-label img {
+  width: 1rem;
+  transform: translateY(5%);
+  -webkit-transform: translateY(5%);
+  -moz-transform: translateY(5%);
+  -ms-transform: translateY(5%);
+  -o-transform: translateY(5%);
 }
 .transaction-container {
   position: absolute;
-  width: 80vw;
-  max-height: 50vh;
+  width: 100vw;
   height: 0;
-  bottom: 175%;
+  bottom: 100%;
   left: 0%;
-  height: 0;
   overflow-y: auto;
   background-color: var(--darker);
   border-radius: 1rem 1rem 0 0;
@@ -68,23 +78,28 @@ h2 {
   -moz-border-radius: 1rem 1rem 0 0;
   -ms-border-radius: 1rem 1rem 0 0;
   -o-border-radius: 1rem 1rem 0 0;
-  transition: height 500ms ease-in-out;
-  -webkit-transition: height 500ms ease-in-out;
-  -moz-transition: height 500ms ease-in-out;
-  -ms-transition: height 500ms ease-in-out;
-  -o-transition: height 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
 }
 .transaction-container div {
-  padding: 0 2rem;
-  margin: 1rem 0;
+  margin: 0.25rem 2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 .transaction-label:hover .transaction-container {
-  height: 50vh !important;
+  height: 40vh !important;
 }
 .transaction {
-  padding: 0 4rem;
   display: flex;
   gap: 1rem;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.5);
+}
+.transaction div p:first-of-type {
+  color: rgb(150, 150, 150) !important;
 }
 .token-button-container {
   padding: 0 2rem;
@@ -227,6 +242,7 @@ input {
   background-color: rgb(186, 59, 59);
 }
 .table > div > div:hover {
+  cursor: pointer;
   border: 1px solid #fff;
 }
 .winner-number {
@@ -252,6 +268,8 @@ input {
   -o-transform: translate(-50%, -50%);
 }
 .win-txt {
+  opacity: 0;
+  z-index: 10;
   pointer-events: none;
   position: absolute;
   font-size: 3rem;
@@ -262,11 +280,24 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 500ms ease-in-out;
-  -webkit-transition: opacity 500ms ease-in-out;
-  -moz-transition: opacity 500ms ease-in-out;
-  -ms-transition: opacity 500ms ease-in-out;
-  -o-transition: opacity 500ms ease-in-out;
+}
+.win-txt.show {
+  animation: win 4s ease-in-out;
+  -webkit-animation: win 4s ease-in-out;
+}
+@keyframes win {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 100%;
+  }
+  60% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 .rotate-roulette {
   animation: rotation-roulette 4900ms ease-in-out;
