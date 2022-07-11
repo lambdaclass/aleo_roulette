@@ -1,10 +1,9 @@
 import hashing.poseidon;
 import type_casting.*;
 
-
 //rand_bit_field is the factorization of the poseidon hash of the rand_seed
-function main(bets: [i16;38], rand_seed: field, rand_bit_field: [field;254]) -> i16 {
-    const AMOUNT_OF_POSSIBLE_OUTCOMES: u32 = 38;
+function main(bets: [i16;37], rand_seed: field, rand_bit_field: [field;254]) -> i16 {
+    const AMOUNT_OF_POSSIBLE_OUTCOMES: u32 = 37;
     const ERROR_CODE: i16 = -32768;
 
     let calculated_rand_fe = poseidon(rand_seed, rand_seed);
@@ -28,7 +27,7 @@ function main(bets: [i16;38], rand_seed: field, rand_bit_field: [field;254]) -> 
 
 function spin_roulette_from_rand_bit_field(rand_bit_field: [field;254]) -> u32{
     let rand_six_bits: u32 = six_bits_int_from_bitfield(rand_bit_field);
-    // Modulus 32 operator
+    // Modulus 37 operator
     return rand_six_bits - (rand_six_bits / 37 * 37);
 }
 
