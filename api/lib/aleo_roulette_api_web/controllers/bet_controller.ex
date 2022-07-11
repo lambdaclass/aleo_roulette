@@ -10,7 +10,7 @@ defmodule AleoRouletteApiWeb.BetController do
     :os.cmd(:"cd ../circuits/poseidon && leo clean && leo run")
     LeoIO.wait_for_leo_poseidon()
 
-    poseidon_result = IO.read_poseidon_output()
+    poseidon_result = LeoIO.read_poseidon_output()
     poseidon_bit_decomposition = Helper.poseidon_hash_to_bit_string(poseidon_result)
 
     LeoIO.generate_roulette_leo_input(bet_number,credits,spin_number,poseidon_bit_decomposition)
