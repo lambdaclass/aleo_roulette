@@ -14,6 +14,7 @@ mkShell {
     beam.packages.erlangR23.elixir_1_12
     nixpkgs.rust-bin.stable."1.56.0".default
     nodejs-16_x
+    redis
     curl
   ]
   ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [

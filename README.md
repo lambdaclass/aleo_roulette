@@ -18,6 +18,10 @@ To build the project:
 
 `make build`
 
+To make services work:
+
+`make ops`
+
 To run the API:
 
 `make run_api`
@@ -26,6 +30,10 @@ To run the Frontend:
 
 `make run_front`
 
-to run the api:
+To run the api:
 
 `make run_api`
+
+When you are done, remember to run:
+
+`make stop`

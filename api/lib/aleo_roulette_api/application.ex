@@ -13,9 +13,10 @@ defmodule AleoRouletteApi.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: AleoRouletteApi.PubSub},
       # Start the Endpoint (http/https)
-      AleoRouletteApiWeb.Endpoint
+      AleoRouletteApiWeb.Endpoint,
       # Start a worker by calling: AleoRouletteApi.Worker.start_link(arg)
       # {AleoRouletteApi.Worker, arg}
+      {Redix, {Application.fetch_env!(:redix, :url), [name: :redix]}}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
