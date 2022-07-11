@@ -1,4 +1,4 @@
-defmodule AleoRouletteApi.Roulette.IO do
+defmodule AleoRouletteApi.Roulette.LeoIO do
 
   def bit_list_to_leo_input(bit_list) do
     padded_string = String.pad_leading(bit_list, 254, "0")
