@@ -1,5 +1,5 @@
 [main]
-fe: field = 2;
+fe: field = 1;
 
 [registers]
 r0: field = 0;

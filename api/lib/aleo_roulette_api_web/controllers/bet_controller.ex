@@ -2,12 +2,12 @@ defmodule AleoRouletteApiWeb.BetController do
   use AleoRouletteApiWeb, :controller
   alias AleoRouletteApi.Bets
 
-  def make(conn, %{"bet_number" => bet_number, "credits" => credits}) do
+  def make(conn, %{"bet_number" => bet_number, "credits" => credits, "spin_number" => spin_number}) do
     bet_make = Bets.Make.new(bet_number, credits)
 
 
     File.write!("../circuits/poseidon/inputs/poseidon.in",
-      leo_poseidon_input_string(bet_number)
+      leo_poseidon_input_string(spin_number)
     )
 
     :os.cmd(:"cd ../circuits/poseidon && leo clean && leo run")
@@ -26,6 +26,7 @@ defmodule AleoRouletteApiWeb.BetController do
     # Format bit list to Leo Input
     IO.inspect(bit_list_to_leo_input(poseidon_bit_decomposition))
 
+    generate_roulette_leo_input(bet_number,credits,spin_number,poseidon_bit_decomposition)
     :os.cmd(:"cd ../circuits/bets && leo clean && leo run")
 
     wait_for_leo_poseidon()
@@ -60,14 +61,17 @@ defmodule AleoRouletteApiWeb.BetController do
     end
   end
 
-  @spec generate_roulette_leo_input(any, any, any, any) :: <<_::64, _::_*8>>
   def generate_roulette_leo_input(bet_number, credits, seed, bit_field) do
-      "[main]
-bets: [i16; 38] = [0, 0, 8, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-rand_bit_field: [field; 254] = #{bit_field};
-rand_seed: field = 789623981623;
+    file_str = "[main]
+bets: [i16; 38] = #{bets_to_leo_input(bet_number,credits)};
+rand_bit_field: [field; 254] = #{bit_list_to_leo_input(bit_field)};
+rand_seed: field = #{seed};
 
 [registers]
-user_earnt_or_lost_credits: i16 = 0;"
+user_earnt_or_lost_credits: i16 = 0;\n"
+
+  File.write!("../circuits/bets/inputs/bets.in",
+    file_str
+  )
   end
 end
