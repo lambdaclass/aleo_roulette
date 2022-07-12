@@ -11,7 +11,7 @@ defmodule AleoRouletteApi.Roulette.LeoIO do
   def bets_to_leo_input(bet_number, credits) do
     bet_number = String.to_integer(bet_number)
     base_string = "[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]"
-    String.slice(base_string,0..((bet_number - 1) * 3)) <> credits <>  String.slice(base_string,bet_number * 3 + 2..-1) |> IO.inspect()
+    String.slice(base_string,0..((bet_number - 1) * 3)) <> credits <>  String.slice(base_string,bet_number * 3 + 2..-1)
   end
 
   def wait_for_leo_poseidon() do
