@@ -4,7 +4,7 @@
 let make = () => {
   let (rotateValue, setRotateValue) = React.useState(_ => 352)
   let (playing, setPlay) = React.useState(_ => false)
-  let (bet, setBet) = React.useState(_ => 0)
+  let (bet, setBet) = React.useState(_ => -1)
   let (betToken, setBetToken) = React.useState(() => "")
   let (rouletteNumber, setRouletteNumber) = React.useState(_ => -1)
   let (win, setWin) = React.useState(_ => false)
@@ -47,15 +47,16 @@ let make = () => {
     323,
     119,
   ]
-  let (transactions, setTransactions) = React.useState(_ => [])
+  let (transactions, _setTransactions) = React.useState(_ => [])
   let handleInputChange = event => {
     let value = ReactEvent.Form.currentTarget(event)["value"]
     setBetToken(_ => value)
   }
+
   let handleBet = betValue => {
-    setBet(prev => betValue)
+    setBet(_prev => betValue)
   }
-  let handleSpin = evt => {
+  let handleSpin = _evt => {
     let randomNumber = Js.Math.random_int(0, 37)
     let degreeSelected = degreesArray[randomNumber]
     let circleMove = Js.Math.random_int(3, 6)
@@ -77,11 +78,11 @@ let make = () => {
       setPlay(prev => !prev)
       setTimeout(() => {
         setPlay(prev => !prev)
-        setRouletteNumber(prev => randomNumber)
+        setRouletteNumber(_prev => randomNumber)
         if randomNumber == bet * 1 {
-          setWin(prev => true)
+          setWin(_prev => true)
         } else {
-          setWin(prev => false)
+          setWin(_prev => false)
         }
       }, 5000)
     }
@@ -89,7 +90,7 @@ let make = () => {
   <div className="roulette-table">
     <Win playing win />
     <Roulette playing rotateValue rouletteNumber />
-    <Table handleBet playing />
+    <Table bet handleBet playing />
     <div className="action-panel">
       <div className="transaction-label">
         {React.string("Transactions")}
