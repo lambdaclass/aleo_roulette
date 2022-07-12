@@ -12,7 +12,7 @@ mkShell {
   buildInputs = [
     git
     beam.packages.erlangR23.elixir_1_12
-    nixpkgs.rust-bin.stable."1.56.0".default
+    nixpkgs.rust-bin.stable."1.62.0".default
     nodejs-16_x
     curl
   ]
@@ -21,4 +21,8 @@ mkShell {
     #Adds some libraries needed to compile the project in mac
     AppKit
   ]);
+  
+  shellHook = '' 
+      export PATH="$PWD/aleo/target/release:$PATH"
+    '';
 }
