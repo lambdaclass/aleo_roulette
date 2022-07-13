@@ -28,3 +28,6 @@ run_api:
 update_aleo:
 	cd aleo && git pull origin main
 	cd aleo && cargo build
+
+run_bet_leo:
+	cd circuits/bets_aleo && aleo run bets "{ owner: aleo1r7rxeeu82vumna997t62y7yjrdc9te2zv0xqnyxyg6zmn5jjhqpsx89h2h.private, balance: 5u64.private }" "{ owner: aleo1r7rxeeu82vumna997t62y7yjrdc9te2zv0xqnyxyg6zmn5jjhqpsx89h2h.private, balance: 5u64.private }" 2u8 2u8 5u64
