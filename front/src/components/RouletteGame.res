@@ -2,61 +2,62 @@
 
 @react.component
 let make = () => {
-  let (rotateValue, setRotateValue) = React.useState(_ => 352)
+  let (rotateValue, setRotateValue) = React.useState(_ => 356)
   let (playing, setPlay) = React.useState(_ => false)
-  let (bet, setBet) = React.useState(_ => 0)
+  let (bet, setBet) = React.useState(_ => -1)
   let (betToken, setBetToken) = React.useState(() => "")
   let (rouletteNumber, setRouletteNumber) = React.useState(_ => -1)
   let (win, setWin) = React.useState(_ => false)
   let degreesArray = [
-    352,
-    216,
-    50,
-    332,
-    31,
-    177,
-    89,
-    293,
-    148,
-    255,
-    167,
-    128,
-    313,
-    110,
-    235,
-    12,
-    196,
-    70,
-    274,
-    21,
-    225,
-    41,
-    264,
-    158,
-    187,
-    60,
-    342,
-    99,
-    303,
+    356,
+    220,
+    56,
+    337,
+    36,
+    182,
+    95,
+    298,
+    153,
+    259,
+    172,
+    133,
+    317,
+    114,
+    240,
+    17,
+    201,
+    75,
+    278,
+    26,
+    230,
+    46,
+    269,
+    162,
+    192,
+    65,
+    346,
+    104,
+    288,
     284,
-    138,
-    245,
-    2,
-    206,
-    80,
-    323,
-    119,
+    143,
+    249,
+    6,
+    211,
+    85,
+    327,
+    124,
   ]
-  let (transactions, setTransactions) = React.useState(_ => [])
+  let (transactions, _setTransactions) = React.useState(_ => [])
   let handleInputChange = event => {
     let value = ReactEvent.Form.currentTarget(event)["value"]
     setBetToken(_ => value)
   }
+
   let handleBet = betValue => {
-    setBet(prev => betValue)
+    setBet(_prev => betValue)
   }
-  let handleSpin = evt => {
-    let randomNumber = 32
+  let handleSpin = _evt => {
+    let randomNumber = Js.Math.random_int(0, 37)
     let degreeSelected = degreesArray[randomNumber]
     let circleMove = Js.Math.random_int(3, 6)
 
@@ -77,11 +78,11 @@ let make = () => {
       setPlay(prev => !prev)
       setTimeout(() => {
         setPlay(prev => !prev)
-        setRouletteNumber(prev => randomNumber)
+        setRouletteNumber(_prev => randomNumber)
         if randomNumber == bet * 1 {
-          setWin(prev => true)
+          setWin(_prev => true)
         } else {
-          setWin(prev => false)
+          setWin(_prev => false)
         }
       }, 5000)
     }
@@ -89,10 +90,12 @@ let make = () => {
   <div className="roulette-table">
     <Win playing win />
     <Roulette playing rotateValue rouletteNumber />
-    <Table handleBet playing />
+    <Table bet handleBet playing />
     <div className="action-panel">
       <div className="transaction-label">
-        {React.string("Transactions")} <TransactionsList win transactions />
+        {React.string("Transactions")}
+        <img src="/images/arrow.svg" />
+        <TransactionsList win transactions />
       </div>
       <div className="token-button-container">
         <Token handleInputChange betToken /> <Button handleClick=handleSpin playing />

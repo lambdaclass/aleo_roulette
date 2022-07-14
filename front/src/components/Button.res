@@ -8,6 +8,6 @@ let make = (~handleClick, ~playing) => {
       ~opacity=playing ? "0" : "100%",
       (),
     )}>
-    {React.string("SPIN")}
+    {React.string("Spin")}
   </button>
 }
