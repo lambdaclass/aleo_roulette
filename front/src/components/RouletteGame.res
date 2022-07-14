@@ -2,7 +2,7 @@
 
 @react.component
 let make = () => {
-  let (rotateValue, setRotateValue) = React.useState(_ => 352)
+  let (rotateValue, setRotateValue) = React.useState(_ => 356)
   let (playing, setPlay) = React.useState(_ => false)
   let (bet, setBet) = React.useState(_ => -1)
   let (betToken, setBetToken) = React.useState(() => "")
