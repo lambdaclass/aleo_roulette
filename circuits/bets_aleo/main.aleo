@@ -40,7 +40,7 @@ function bets:
     //r5 is true if casino wins
     //r11 casino money after game
     ternary r5 r8 r7 into r11;
-    //r11 gambler money after game
+    //r12 gambler money after game
     ternary r5 r9 r10 into r12;
 
     cast r0.owner r12 into r13 as gambler.record;
