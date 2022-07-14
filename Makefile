@@ -1,5 +1,9 @@
 init:
 	cargo install leo-lang
+	git submodule init aleo
+	git submodule update
+	cd aleo && git pull origin main
+	cd aleo && cargo build --release
 	mix local.hex && mix archive.install hex phx_new
 	cd api && mix deps.get && mix deps.compile
 	npm install --prefix front --silent
@@ -27,4 +31,4 @@ run_api:
 
 update_aleo:
 	cd aleo && git pull origin main
-	cd aleo && cargo build
+	cd aleo && cargo build --release
