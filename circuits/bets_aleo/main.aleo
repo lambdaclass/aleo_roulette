@@ -22,14 +22,29 @@ function bets:
     input r4 as u64.private;
 
     //This should be eq but it doesn't work right now
-    gte r3 r3 into r5;
+    gte r3 r2 into r5;
 
-    ternary r5 36u64 0u64 into r6;
-    ternary r5 0u64 1u64 into r7;
-    add r2 0u8 into r8;
+    //Reward
+    mul r4 35u64 into r6;
 
-    cast r0.owner r6 into r9 as gambler.record;
-    cast r0.owner r7 into r10 as casino.record;
+    //Casino money if win 
+    add r1.balance r4 into r7;
+    //Casino money if lose
+    sub r1.balance r6 into r8;
 
-    output r9 as gambler.record;
-    output r10 as casino.record;
+    //Gambler money if win 
+    add r0.balance r6 into r9;
+    //Gambler money if lose
+    sub r0.balance r4 into r10;
+
+    //r5 is true if casino wins
+    //r11 casino money after game
+    ternary r5 r8 r7 into r11;
+    //r11 gambler money after game
+    ternary r5 r9 r10 into r12;
+
+    cast r0.owner r12 into r13 as gambler.record;
+    cast r1.owner r11 into r14 as casino.record;
+
+    output r13 as gambler.record;
+    output r14 as casino.record;
