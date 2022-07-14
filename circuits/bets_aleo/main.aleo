@@ -13,7 +13,7 @@ record casino:
 function bets:
     // Bet number
     input r0 as gambler.record;
-    input r1 as gambler.record;
+    input r1 as casino.record;
     // Represents a random result
     input r2 as u8.private;
     // The number the gambler used to bet
