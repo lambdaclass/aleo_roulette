@@ -11,7 +11,6 @@ record casino:
     balance as u64.private;
 
 function bets:
-    // Bet number
     input r0 as gambler.record;
     input r1 as casino.record;
     // Represents a random result
