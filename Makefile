@@ -25,3 +25,6 @@ run_front:
 run_api:
 	cd api && PORT=5000 mix phx.server
 
+update_aleo:
+	cd aleo && git pull origin main
+	cd aleo && cargo build
