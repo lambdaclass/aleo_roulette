@@ -1,5 +1,9 @@
 init:
 	cargo install leo-lang
+	git submodule init aleo
+	git submodule update
+	cd aleo && git pull origin main
+	cd aleo && cargo build --release
 	mix local.hex && mix archive.install hex phx_new
 	cd api && mix deps.get && mix deps.compile
 	npm install --prefix front --silent
@@ -27,7 +31,7 @@ run_api:
 
 update_aleo:
 	cd aleo && git pull origin main
-	cd aleo && cargo build
+	cd aleo && cargo build --release
 
 run_winning_bet_aleo:
 	cd circuits/bets_aleo && aleo run bets "{ owner: aleo1r7rxeeu82vumna997t62y7yjrdc9te2zv0xqnyxyg6zmn5jjhqpsx89h2h.private, balance: 2u64.private }" "{ owner: aleo1r7rxeeu82vumna997t62y7yjrdc9te2zv0xqnyxyg6zmn5jjhqpsx89h2h.private, balance: 1000u64.private }" 2u8 2u8 2u64

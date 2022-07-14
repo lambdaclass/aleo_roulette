@@ -1,5 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap");
 :root {
-  --darker: hsla(169, 86%, 9%, 0.9);
+  --dark-background: #261b6e;
+  --transparent-gray: rgba(255, 255, 255, 0.05);
+  --black-table: #393d62;
+  --red-table: #dd375e;
+  --saturated-violet: #614af0;
 }
 html,
 body {
@@ -8,28 +13,38 @@ body {
 }
 body {
   color: white;
-  font-family: sans-serif;
-  background-color: #074e3f;
+  font-family: "Inter", sans-serif;
+  background-color: #1c144d;
 }
 .screen {
   position: relative;
   min-height: 100vh;
 }
-h1,
-h2 {
+.headings {
+  width: 100%;
   position: absolute;
   top: 0;
   text-align: center;
-  margin: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 h1 {
-  padding: 1rem 0;
-  width: 100%;
-  background-color: var(--darker);
+  width: 35%;
+  padding: 1rem;
+  background-color: var(--dark-background);
 }
 h2 {
+  margin: 0 2rem;
   font-size: 1rem;
   padding: 1rem;
+  font-weight: normal;
+  background-color: var(--transparent-gray);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 .roulette-table {
   position: relative;
@@ -40,51 +55,64 @@ h2 {
 }
 .action-panel {
   width: 100%;
-  background-color: var(--darker);
+  background-color: var(--dark-background);
   position: fixed;
   bottom: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 1.5rem;
 }
 .transaction-label {
   position: relative;
-  padding: 0.5rem 1rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.transaction-label img {
+  width: 1rem;
+  transform: translateY(5%);
+  -webkit-transform: translateY(5%);
+  -moz-transform: translateY(5%);
+  -ms-transform: translateY(5%);
+  -o-transform: translateY(5%);
 }
 .transaction-container {
   position: absolute;
-  width: 80vw;
-  max-height: 50vh;
+  width: 100vw;
   height: 0;
-  bottom: 175%;
+  bottom: 100%;
   left: 0%;
-  height: 0;
   overflow-y: auto;
-  background-color: var(--darker);
+  background-color: var(--dark-background);
   border-radius: 1rem 1rem 0 0;
   -webkit-border-radius: 1rem 1rem 0 0;
   -moz-border-radius: 1rem 1rem 0 0;
   -ms-border-radius: 1rem 1rem 0 0;
   -o-border-radius: 1rem 1rem 0 0;
-  transition: height 500ms ease-in-out;
-  -webkit-transition: height 500ms ease-in-out;
-  -moz-transition: height 500ms ease-in-out;
-  -ms-transition: height 500ms ease-in-out;
-  -o-transition: height 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
 }
 .transaction-container div {
-  padding: 0 2rem;
-  margin: 1rem 0;
+  margin: 0.25rem 2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 .transaction-label:hover .transaction-container {
-  height: 50vh !important;
+  height: 40vh !important;
 }
 .transaction {
-  padding: 0 4rem;
   display: flex;
   gap: 1rem;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.5);
+}
+.transaction div p:first-of-type {
+  color: rgb(150, 150, 150) !important;
 }
 .token-button-container {
   padding: 0 2rem;
@@ -108,8 +136,8 @@ input {
   position: absolute;
   top: 0;
   left: 50%;
-  width: 25rem;
-  height: 25rem;
+  width: 30rem;
+  height: 30rem;
   user-select: none;
   pointer-events: none;
   transform: translateX(-50%);
@@ -123,8 +151,8 @@ input {
   position: relative;
   top: 0;
   left: 50%;
-  width: 25rem;
-  height: 25rem;
+  width: 30rem;
+  height: 30rem;
   transition: all 5s ease-in-out;
   -webkit-transition: all 5s ease-in-out;
   -moz-transition: all 5s ease-in-out;
@@ -134,12 +162,12 @@ input {
 .ball:after {
   content: " ";
   position: absolute;
-  top: 17%;
+  top: 20%;
   left: 50%;
   width: 1rem;
   height: 1rem;
   background-color: white;
-  box-shadow: 2px 2px 4px grey;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   border-radius: 100%;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
@@ -149,8 +177,8 @@ input {
 .spin {
   padding: 0.5rem;
   font-size: 1.5rem;
-  background: rgba(1, 234, 239, 0.25);
-  color: #01eaef;
+  background: var(--saturated-violet);
+  color: #fff;
   font-size: 1.25rem;
   border: none !important;
   transition: all 500ms ease-in-out;
@@ -168,48 +196,48 @@ input {
   border: 1px solid #fff;
 }
 .table {
-  height: 12rem;
   display: grid;
   grid-auto-flow: column;
   grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem;
 }
 .table div:first-of-type {
   grid-row: 1 / -1;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .table div:first-of-type div {
-  color: #6bea65;
-  background-color: rgba(107, 234, 101, 0.2) !important;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 100%;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
-  -o-border-radius: 100%;
+  color: #fff;
+  background-color: #71c758 !important;
+  width: 3.5rem;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
 .table > div {
   width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+}
+.table > div:not(:first-of-type) > div {
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
-  font-size: 1.5rem;
-  border: 1px solid #eae5e5;
-}
-.table > div > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 3rem;
-  height: 3rem !important;
   border: 1px solid transparent;
-  border-radius: 100%;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
-  -o-border-radius: 100%;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
   transition: all 250ms ease-in-out;
   -webkit-transition: all 250ms ease-in-out;
   -moz-transition: all 250ms ease-in-out;
@@ -219,14 +247,15 @@ input {
 .table div:nth-of-type(n - 12) div,
 .table div:nth-of-type(2n + 12):nth-of-type(-n + 19) div,
 .table div:nth-of-type(n + 29):nth-of-type(-2n + 36) div {
-  background-color: rgb(23, 22, 22);
+  background-color: var(--black-table);
 }
 .table div:nth-of-type(2n - 12) div,
 .table div:nth-of-type(n + 12):nth-of-type(-2n + 19) div,
 .table div:nth-of-type(2n + 29):nth-of-type(-n + 37) div {
-  background-color: rgb(186, 59, 59);
+  background-color: var(--red-table);
 }
 .table > div > div:hover {
+  cursor: pointer;
   border: 1px solid #fff;
 }
 .winner-number {
@@ -239,7 +268,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #231a58;
   border-radius: 100%;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
@@ -252,6 +281,8 @@ input {
   -o-transform: translate(-50%, -50%);
 }
 .win-txt {
+  opacity: 0;
+  z-index: 10;
   pointer-events: none;
   position: absolute;
   font-size: 3rem;
@@ -262,11 +293,24 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 500ms ease-in-out;
-  -webkit-transition: opacity 500ms ease-in-out;
-  -moz-transition: opacity 500ms ease-in-out;
-  -ms-transition: opacity 500ms ease-in-out;
-  -o-transition: opacity 500ms ease-in-out;
+}
+.win-txt.show {
+  animation: win 4s ease-in-out;
+  -webkit-animation: win 4s ease-in-out;
+}
+@keyframes win {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 100%;
+  }
+  60% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 .rotate-roulette {
   animation: rotation-roulette 4900ms ease-in-out;
