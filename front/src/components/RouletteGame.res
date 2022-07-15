@@ -92,13 +92,42 @@ let make = () => {
     <Roulette playing rotateValue rouletteNumber />
     <Table bet handleBet playing />
     <div className="action-panel">
-      <div className="transaction-label">
+      <div className="dropdown">
         {React.string("Transactions")}
         <img src="/images/arrow.svg" />
         <TransactionsList win transactions />
       </div>
+      <div className="dropdown">
+        {React.string("Your account")}
+        <img src="/images/arrow.svg" />
+        <div className="info-container">
+          <div>
+            <span> {React.string("Address: ")} </span>
+            {React.string("aleo16wd34qm57qp7u0x00sqaykw5f4x6wr72zcyd493hzluntj43cuqqjpvfuy")}
+          </div>
+          <div>
+            <span> {React.string("Balance: ")} </span>
+            {React.string("200 credits")}
+          </div>
+        </div>
+      </div>
+      <div className="dropdown">
+        {React.string("Casino's account")}
+        <img src="/images/arrow.svg" />
+        <div className="info-container">
+          <div>
+            <span> {React.string("Address: ")} </span>
+            {React.string("aleo16wd34qm57qp7u0x00sqaykw5f4x6wr72zcyd493hzluntj43cuqqjpvfuy")}
+          </div>
+          <div>
+            <span> {React.string("Balance: ")} </span>
+            {React.string("1000 credits")}
+          </div>
+        </div>
+      </div>
       <div className="token-button-container">
-        <Token handleInputChange betToken /> <Button handleClick=handleSpin playing />
+        <Token handleInputChange betToken />
+        <Button handleClick=handleSpin playing />
       </div>
     </div>
   </div>

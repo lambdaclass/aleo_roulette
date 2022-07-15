@@ -63,14 +63,26 @@ h2 {
   align-items: center;
   gap: 1rem;
 }
-.transaction-label {
-  position: relative;
-  padding: 2rem;
+.dropdown {
+  margin: 1rem;
+  padding: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
+  background-color: var(--transparent-gray);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
 }
-.transaction-label img {
+.dropdown img {
   width: 1rem;
   transform: translateY(5%);
   -webkit-transform: translateY(5%);
@@ -78,24 +90,34 @@ h2 {
   -ms-transform: translateY(5%);
   -o-transform: translateY(5%);
 }
-.transaction-container {
+.transaction-container,
+.info-container {
   position: absolute;
-  width: 100vw;
   height: 0;
   bottom: 100%;
-  left: 0%;
-  overflow-y: auto;
+  left: 0;
+  right: 0;
+  transition: all 500ms ease-in-out;
+  -webkit-transition: all 500ms ease-in-out;
+  -moz-transition: all 500ms ease-in-out;
+  -ms-transition: all 500ms ease-in-out;
+  -o-transition: all 500ms ease-in-out;
   background-color: var(--dark-background);
   border-radius: 1rem 1rem 0 0;
   -webkit-border-radius: 1rem 1rem 0 0;
   -moz-border-radius: 1rem 1rem 0 0;
   -ms-border-radius: 1rem 1rem 0 0;
   -o-border-radius: 1rem 1rem 0 0;
-  transition: all 500ms ease-in-out;
-  -webkit-transition: all 500ms ease-in-out;
-  -moz-transition: all 500ms ease-in-out;
-  -ms-transition: all 500ms ease-in-out;
-  -o-transition: all 500ms ease-in-out;
+  overflow: hidden;
+}
+.info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+.info-container span {
+  color: gray;
 }
 .transaction-container div {
   margin: 0.25rem 2rem 0.5rem;
@@ -103,8 +125,15 @@ h2 {
   align-items: center;
   gap: 0.5rem;
 }
-.transaction-label:hover .transaction-container {
+.dropdown:hover {
+  background-color: #1c144d;
+}
+.dropdown:hover .transaction-container {
   height: 40vh !important;
+  overflow-y: auto;
+}
+.dropdown:hover .info-container {
+  height: 8rem !important;
 }
 .transaction {
   display: flex;
