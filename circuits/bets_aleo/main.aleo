@@ -1,8 +1,49 @@
-// The 'bets_aleo.aleo' program.
 program bets_aleo.aleo;
 
-function hello_world:
-    input r0 as u32.public;
-    input r1 as u32.private;
-    add r0 r1 into r2;
-    output r2 as u32.private;
+record gambler:
+    owner as address.private;
+    balance as u64.private;
+
+
+// Casino record should be owned by the casino for production release
+record casino:
+    owner as address.private;
+    balance as u64.private;
+
+function bets:
+    input r0 as gambler.record;
+    input r1 as casino.record;
+    // Represents a random result
+    input r2 as u8.private;
+    // The number the gambler used to bet
+    input r3 as u8.private;
+    // The betted amount of money
+    input r4 as u64.private;
+
+    //This should be eq but it doesn't work right now
+    gte r3 r2 into r5;
+
+    //Reward
+    mul r4 35u64 into r6;
+
+    //Casino money if win 
+    add r1.balance r4 into r7;
+    //Casino money if lose
+    sub r1.balance r6 into r8;
+
+    //Gambler money if win 
+    add r0.balance r6 into r9;
+    //Gambler money if lose
+    sub r0.balance r4 into r10;
+
+    //r5 is true if casino wins
+    //r11 casino money after game
+    ternary r5 r8 r7 into r11;
+    //r12 gambler money after game
+    ternary r5 r9 r10 into r12;
+
+    cast r0.owner r12 into r13 as gambler.record;
+    cast r1.owner r11 into r14 as casino.record;
+
+    output r13 as gambler.record;
+    output r14 as casino.record;
