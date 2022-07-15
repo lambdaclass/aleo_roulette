@@ -2,13 +2,13 @@ program bets_aleo.aleo;
 
 record gambler:
     owner as address.private;
-    balance as u64.private;
+    gates as u64.private;
 
 
 // Casino record should be owned by the casino for production release
 record casino:
     owner as address.private;
-    balance as u64.private;
+    gates as u64.private;
 
 function bets:
     input r0 as gambler.record;
@@ -27,14 +27,14 @@ function bets:
     mul r4 35u64 into r6;
 
     //Casino money if win 
-    add r1.balance r4 into r7;
+    add r1.gates r4 into r7;
     //Casino money if lose
-    sub r1.balance r6 into r8;
+    sub r1.gates r6 into r8;
 
     //Gambler money if win 
-    add r0.balance r6 into r9;
+    add r0.gates r6 into r9;
     //Gambler money if lose
-    sub r0.balance r4 into r10;
+    sub r0.gates r4 into r10;
 
     //r5 is true if casino wins
     //r11 casino money after game
@@ -47,3 +47,4 @@ function bets:
 
     output r13 as gambler.record;
     output r14 as casino.record;
+
