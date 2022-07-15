@@ -1,7 +1,7 @@
 init:
 	cargo install leo-lang
 	git submodule init aleo
-	git submodule update
+	git submodule update --remote --merge
 	cd aleo && git pull origin main
 	cd aleo && cargo build --release
 	mix local.hex && mix archive.install hex phx_new
@@ -30,7 +30,7 @@ run_api:
 	cd api && PORT=5000 mix phx.server
 
 update_aleo:
-	cd aleo && git pull origin main
+	git submodule update --remote --merge
 	cd aleo && cargo build --release
 
 run_winning_bet_aleo:
