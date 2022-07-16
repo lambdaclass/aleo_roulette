@@ -7,7 +7,7 @@ record token:
     gates as u64.private;
     amount as u64.private;
 
-function mint_casino_token:
+function mint_casino_token_record:
     // casino address
     input r0 as address.private;
     // casino amount of tokens
@@ -15,41 +15,19 @@ function mint_casino_token:
     cast r0 0u64 r1 into r2 as token.record;
     output r2 as token.record;
 
-function transfer_casino_to_player:
-    // casino token record
-    input r0 as token.record;
-    // player address
-    input r1 as address.private;
-    // amount of token to transfer to player
-    input r2 as u64.private;
-
-    //check balance
-    sub r0.amount r2 into r3;
-
-    // token record for player
-    cast r1 0u64 r2 into r4 as token.record;
-
-    // token record for casino
-    cast r0.owner r0.gates r3 into r5 as token.record;
-
-    // casino new token record
-    output r4 as token.record;
-    // player new token record
-    output r5 as token.record;
-
-function bet:
+function make_bet:
     // casino token record
     input r0 as token.record;
     // player address
     input r1 as address.private;
     // Random roulette result
     input r2 as u8.private;
-    // Player number bet
+    // Player bet number
     input r3 as u8.private;
-    // Player amount of tokens bet
+    // Player bet amount of tokens
     input r4 as u64.private;
     // Player amount of available tokens
-    input r5 as u64.private
+    input r5 as u64.private;
     
     //r6 is true if player wins
     //This should be eq but it doesn't work right now
