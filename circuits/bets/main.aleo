@@ -30,7 +30,7 @@ function make_bet:
     input r5 as u64.private;
     
     //r6 is true if player wins
-    //This should be eq but it doesn't work right now
+    //Here we should use is.eq, but it doesn't work yet
     gte r3 r2 into r6;
 
     //Reward
