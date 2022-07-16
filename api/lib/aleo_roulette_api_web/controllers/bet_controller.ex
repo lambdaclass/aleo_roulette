@@ -1,10 +1,27 @@
 defmodule AleoRouletteApiWeb.BetController do
   use AleoRouletteApiWeb, :controller
+  alias AleoRouletteApi.Roulette.AleoIO
   alias AleoRouletteApi.Roulette.LeoIO
   alias AleoRouletteApi.Roulette.Model
   alias AleoRouletteApi.Roulette.Helper
 
-  def make(conn, %{"bet_number" => bet_number, "credits" => credits, "spin_number" => spin_number}) do
+  def make_with_aleo(conn, %{
+        "bet_number" => bet_number,
+        "credits" => credits,
+        "spin_number" => spin_number
+      }) do
+    psd_hash = AleoIO.gen_poseidon_hash(5)
+    IO.inspect(psd_hash)
+
+    conn
+    |> render("make.json", spin_result: "", new_balance: "")
+  end
+
+  def make_with_leo(conn, %{
+        "bet_number" => bet_number,
+        "credits" => credits,
+        "spin_number" => spin_number
+      }) do
     LeoIO.generate_poseidon_leo_input(spin_number)
     :os.cmd(:"cd ../circuits/poseidon_leo && leo clean && leo run")
     LeoIO.wait_for_leo_poseidon()
