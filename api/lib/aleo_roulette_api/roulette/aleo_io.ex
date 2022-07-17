@@ -1,31 +1,22 @@
 defmodule AleoRouletteApi.Roulette.AleoIO do
+  alias AleoRouletteApi.Roulette.AleoOutputParser
+
   @aleo_path "../../aleo/target/release/aleo"
-  @poseidon_circuit_path "../circuits/poseidon_aleo"
-  @bets_circuit_path "../circuits/poseidon_aleo"
-  @aleo_output_prefix " • "
+  @poseidon_circuit_path "../circuits/poseidon"
+  @bets_circuit_path "../circuits/bets"
 
   def gen_poseidon_hash(seed) do
     {output, _exit_code} = run_poseidon_circuit(seed)
 
     output
-    |> String.split("\n")
-    |> Enum.at(7)
-    |> get_aleo_output_value("field")
-    |> Integer.parse()
-    |> Tuple.to_list()
-    |> Enum.at(0)
-  end
-
-  def gen_bet_result(seed) do
-    {output, _exit_code} = run_poseidon_circuit(seed)
+    |> IO.inspect()
 
     output
-    |> String.split("\n")
-    |> Enum.at(7)
-    |> get_aleo_output_value("field")
-    |> Integer.parse()
-    |> Tuple.to_list()
-    |> Enum.at(0)
+    |> AleoOutputParser.get_hash()
+  end
+
+  def gen_casino_record(seed) do
+    {output, _exit_code} = run_poseidon_circuit(seed)
   end
 
   defp run_poseidon_circuit(seed) do
@@ -35,9 +26,10 @@ defmodule AleoRouletteApi.Roulette.AleoIO do
     ])
   end
 
-  defp get_aleo_output_value(output, type) do
-    output
-    |> String.replace_prefix(@aleo_output_prefix, <<>>)
-    |> String.replace_suffix(type, <<>>)
+  defp run_casino_token_mint_circuit(seed) do
+    System.cmd("sh", [
+      "-c",
+      "cd #{@bets_circuit_path} && #{@aleo_path} run psd_hash #{seed}u32"
+    ])
   end
 end
