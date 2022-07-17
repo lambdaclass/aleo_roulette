@@ -1,4 +1,4 @@
-defmodule AleoRouletteApi.Roulette.AleoOutputParser do
+defmodule AleoRouletteApi.Aleo.OutputParser do
   import NimbleParsec
 
   @output_start_prefix "➡️  Output"
