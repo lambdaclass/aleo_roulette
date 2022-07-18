@@ -9,9 +9,7 @@ defmodule AleoRouletteApi.Aleo.IO do
     {output, _exit_code} = run_poseidon_circuit(:psd_hash, %{seed: "#{seed}u32"})
 
     output
-    |> IO.puts()
-
-    output
+    |> IO.inspect()
     |> OutputParser.get_pds_hash()
   end
 
@@ -23,9 +21,7 @@ defmodule AleoRouletteApi.Aleo.IO do
       )
 
     output
-    |> IO.puts()
-
-    output
+    |> IO.inspect()
     |> OutputParser.get_mint_casino_token_record()
   end
 
@@ -55,9 +51,7 @@ defmodule AleoRouletteApi.Aleo.IO do
       )
 
     output
-    |> IO.puts()
-
-    output
+    |> IO.inspect()
     |> OutputParser.get_make_bet()
   end
 

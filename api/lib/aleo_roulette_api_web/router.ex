@@ -8,8 +8,13 @@ defmodule AleoRouletteApiWeb.Router do
   scope "/api", AleoRouletteApiWeb do
     pipe_through(:api)
 
+    scope "/records" do
+      scope "/token" do
+        post("/casino", RecordController, :mint_casino_token_record)
+      end
+    end
+
     scope "/bets" do
-      post("/make/leo", BetController, :make_with_leo)
       post("/make/aleo", BetController, :make_with_aleo)
     end
   end
