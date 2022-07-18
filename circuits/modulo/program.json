@@ -1,0 +1,10 @@
+{
+    "program": "modulo.aleo",
+    "version": "0.0.0",
+    "description": "",
+    "development": {
+        "private_key": "APrivateKey1zkp4RDDBv9CsKj2YDLwXwNrGwcvgLWDaNPDNYrbCTtYzSbP",
+        "address": "aleo1mn4nr8074fqzw4uczt4dr5vudrz6rqrnl9c5pec8cmlxca46fszq8t5k6s"
+    },
+    "license": "MIT"
+}
