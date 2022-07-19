@@ -17,7 +17,7 @@ defmodule AleoRouletteApiWeb.BetController do
         "player_bet_number" => player_bet_number,
         "player_bet_amount" => player_bet_amount
       }) do
-    {casino_token_record, player_token_record} =
+    {casino_token_record, player_token_record, spin_result} =
       Game.make_bet(
         %{
           owner: casino_address,
@@ -34,7 +34,8 @@ defmodule AleoRouletteApiWeb.BetController do
     conn
     |> render("make_bet.json",
       casino_token_record: casino_token_record,
-      player_token_record: player_token_record
+      player_token_record: player_token_record,
+      spin_result: spin_result
     )
   end
 end

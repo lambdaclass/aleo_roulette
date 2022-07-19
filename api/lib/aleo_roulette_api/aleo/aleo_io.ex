@@ -5,7 +5,7 @@ defmodule AleoRouletteApi.Aleo.IO do
   @bets_circuit_path "../circuits/bets"
 
   def gen_poseidon_hash(seed) do
-    {output, _exit_code} = run_poseidon_circuit(:psd_hash, %{seed: "#{seed}u32"})
+    {output, _exit_code} = run_bets_circuit(:psd_hash, %{seed: "#{seed}u32"})
 
     output
     |> IO.inspect()
@@ -54,7 +54,7 @@ defmodule AleoRouletteApi.Aleo.IO do
     |> OutputParser.get_make_bet()
   end
 
-  defp run_poseidon_circuit(
+  defp run_bets_circuit(
          :psd_hash,
          %{seed: seed} = _params
        ) do
