@@ -8,6 +8,37 @@ let make = () => {
   let (betToken, setBetToken) = React.useState(() => "")
   let (rouletteNumber, setRouletteNumber) = React.useState(_ => -1)
   let (win, setWin) = React.useState(_ => false)
+
+  // api integration
+  let (casinoRecord, setCasinoRecord) = React.useState(_ => TokenRecord.default)
+  let (playerRecord, setPlayerRecord) = React.useState(_ => TokenRecord.player)
+
+  React.useEffect0(() => {
+    let payload = Js.Dict.fromArray([("amount", Js.Json.number(1000.))])
+
+    let _ =
+      Fetch.fetchWithInit(
+        "http://localhost:5000/api/records/token/casino",
+        Fetch.RequestInit.make(
+          ~method_=Post,
+          ~body=Fetch.BodyInit.make(Js.Json.stringify(Js.Json.object_(payload))),
+          ~headers=Fetch.HeadersInit.make({"Content-Type": "application/json"}),
+          (),
+        ),
+      )
+      ->Promise.then(Fetch.Response.json)
+      ->Promise.then(json => TokenRecord.decode(json)->Promise.resolve)
+      ->Promise.then(casino_token_record =>
+        setCasinoRecord(_prev => casino_token_record)->Promise.resolve
+      )
+    None
+  })
+
+  React.useEffect1(() => {
+    Js.Console.log(casinoRecord)
+    None
+  }, [casinoRecord])
+
   let degreesArray = [
     356,
     220,
@@ -117,11 +148,11 @@ let make = () => {
         <div className="info-container">
           <div>
             <span> {React.string("Address: ")} </span>
-            {React.string("aleo16wd34qm57qp7u0x00sqaykw5f4x6wr72zcyd493hzluntj43cuqqjpvfuy")}
+            {casinoRecord.owner->React.string}
           </div>
           <div>
             <span> {React.string("Balance: ")} </span>
-            {React.string("1000 credits")}
+            {casinoRecord.amount->React.int}
           </div>
         </div>
       </div>
