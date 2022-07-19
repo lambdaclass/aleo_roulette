@@ -1,3 +1,6 @@
+PORT_API = 5000
+PORT_FRONT = 4000
+
 init:
 	cargo install leo-lang
 	git submodule init aleo
@@ -27,7 +30,7 @@ run_front:
 	PORT=4000 npm start --prefix front
 
 run_api:
-	cd api && PORT=5000 mix phx.server
+	cd api && PORT=${PORT_API} mix phx.server
 
 update_aleo:
 	git submodule update --remote --merge
