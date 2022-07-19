@@ -27,7 +27,7 @@ build:
 
 run_front:
 	npm run re:build --prefix front
-	PORT=4000 npm start --prefix front
+	PORT=${PORT_FRONT} npm start --prefix front
 
 run_api:
 	cd api && PORT=${PORT_API} mix phx.server
