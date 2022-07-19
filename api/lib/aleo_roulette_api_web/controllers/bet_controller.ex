@@ -1,36 +1,40 @@
 defmodule AleoRouletteApiWeb.BetController do
   use AleoRouletteApiWeb, :controller
-  alias AleoRouletteApi.Roulette.LeoIO
-  alias AleoRouletteApi.Roulette.Model
-  alias AleoRouletteApi.Roulette.Helper
+  alias AleoRouletteApi.Roulette.Game
 
-  def make(conn, %{"bet_number" => bet_number, "credits" => credits, "spin_number" => spin_number}) do
-    LeoIO.generate_poseidon_leo_input(spin_number)
-    :os.cmd(:"cd ../circuits/poseidon_leo && leo clean && leo run")
-    LeoIO.wait_for_leo_poseidon()
-
-    poseidon_result = LeoIO.read_poseidon_output()
-    poseidon_bit_decomposition = Helper.poseidon_hash_to_bit_string(poseidon_result)
-
-    LeoIO.generate_roulette_leo_input(
-      bet_number,
-      credits,
-      spin_number,
-      poseidon_bit_decomposition
-    )
-
-    :os.cmd(:"ls && cd ../circuits/bets_leo && leo clean && leo run")
-
-    {credits_int, _} = Integer.parse(credits)
-    {poseidon_int, _} = Integer.parse(poseidon_result)
-    {bet_number_int, _} = Integer.parse(bet_number)
-
-    {spin_result, new_balance} =
-      Model.run_roulette_game(poseidon_int, bet_number_int, credits_int)
-
-    LeoIO.wait_for_leo_roulette()
+  def make_bet(conn, %{
+        "casino_token_record" => %{
+          "owner" => casino_address,
+          "gates" => _casino_gates,
+          "amount" => casino_amount
+        },
+        "player_token_record" => %{
+          "owner" => player_address,
+          "gates" => _player_gates,
+          "amount" => player_amount_of_available_tokens
+        },
+        "seed" => seed,
+        "player_bet_number" => player_bet_number,
+        "player_bet_amount" => player_bet_amount
+      }) do
+    {casino_token_record, player_token_record} =
+      Game.make_bet(
+        %{
+          owner: casino_address,
+          gates: _casino_gates,
+          amount: casino_amount
+        },
+        seed,
+        player_address,
+        player_bet_number,
+        player_bet_amount,
+        player_amount_of_available_tokens
+      )
 
     conn
-    |> render("make.json", spin_result: spin_result, new_balance: new_balance)
+    |> render("make_bet.json",
+      casino_token_record: casino_token_record,
+      player_token_record: player_token_record
+    )
   end
 end

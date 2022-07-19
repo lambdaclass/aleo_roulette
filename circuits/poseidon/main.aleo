@@ -1,5 +1,5 @@
-// The 'poseidon_aleo.aleo' program.
-program poseidon_aleo.aleo;
+// The 'poseidon.aleo' program.
+program poseidon.aleo;
 
 function psd_hash:
     input r0 as u32.public;

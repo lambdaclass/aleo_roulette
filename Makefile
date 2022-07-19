@@ -1,3 +1,6 @@
+PORT_API = 5000
+PORT_FRONT = 4000
+
 init:
 	cargo install leo-lang
 	git submodule init aleo
@@ -27,14 +30,14 @@ run_front:
 	PORT=4000 npm start --prefix front
 
 run_api:
-	cd api && PORT=5000 mix phx.server
+	cd api && PORT=${PORT_API} mix phx.server
 
 update_aleo:
 	git submodule update --remote --merge
 	cd aleo && cargo build --release
 
 run_winning_bet_aleo:
-	cd circuits/bets_aleo && aleo run bets "{ owner: aleo1r7rxeeu82vumna997t62y7yjrdc9te2zv0xqnyxyg6zmn5jjhqpsx89h2h.private, gates: 2u64.private }" "{ owner: aleo1r7rxeeu82vumna997t62y7yjrdc9te2zv0xqnyxyg6zmn5jjhqpsx89h2h.private, gates: 1000u64.private }" 2u8 2u8 2u64
+	cd circuits/bets_aleo && aleo run bets "{ owner: aleo1r7rxeeu82vumna997t62y7yjrdc9te2zv0xqnyxyg6zmn5jjhqpsx89h2h.private, gates: 2u64.private }" "{ owner: aleo1r7rxeeu82vumna997t62y7yjrdc9te2zv0xqnyxyg6zmn4jjhqpsx89h2h.private, gates: 1000u64.private }" 2u8 2u8 2u64
 
 run_losing_bet_aleo:
 	cd circuits/bets_aleo && aleo run bets "{ owner: aleo1r7rxeeu82vumna997t62y7yjrdc9te2zv0xqnyxyg6zmn5jjhqpsx89h2h.private, gates: 2u64.private }" "{ owner: aleo1r7rxeeu82vumna997t62y7yjrdc9te2zv0xqnyxyg6zmn5jjhqpsx89h2h.private, gates: 1000u64.private }" 2u8 1u8 2u64
