@@ -7,6 +7,11 @@ record token:
     gates as u64.private;
     amount as u64.private;
 
+function psd_hash:
+    input r0 as u32.public;
+    hash.psd2 r0 into r1;
+    output r1 as field.private;
+
 function mint_casino_token_record:
     // casino address
     input r0 as address.private;

@@ -2,7 +2,6 @@ defmodule AleoRouletteApi.Aleo.IO do
   alias AleoRouletteApi.Aleo.OutputParser
 
   @aleo_path "../../aleo/target/release/aleo"
-  @poseidon_circuit_path "../circuits/poseidon"
   @bets_circuit_path "../circuits/bets"
 
   def gen_poseidon_hash(seed) do
@@ -61,7 +60,7 @@ defmodule AleoRouletteApi.Aleo.IO do
        ) do
     System.cmd("sh", [
       "-c",
-      "cd #{@poseidon_circuit_path} && #{@aleo_path} run psd_hash #{seed}"
+      "cd #{@bets_circuit_path} && #{@aleo_path} run psd_hash #{seed}"
     ])
   end
 
