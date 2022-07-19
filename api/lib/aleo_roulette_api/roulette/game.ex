@@ -20,13 +20,16 @@ defmodule AleoRouletteApi.Roulette.Game do
 
     roulette_random_result = Integer.mod(aleo_hash, @roulette_posible_results) |> IO.inspect()
 
-    AleoIO.gen_make_bet(
-      casino_token_record,
-      player_address,
-      roulette_random_result,
-      player_bet_number,
-      player_bet_amount,
-      player_amount_of_available_tokens
-    )
+    {casino_token_record, player_token_records} =
+      AleoIO.gen_make_bet(
+        casino_token_record,
+        player_address,
+        roulette_random_result,
+        player_bet_number,
+        player_bet_amount,
+        player_amount_of_available_tokens
+      )
+
+    {casino_token_record, player_token_records, roulette_random_result}
   end
 end

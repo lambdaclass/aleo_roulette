@@ -25,7 +25,7 @@ function make_bet:
     input r0 as token.record;
     // player address
     input r1 as address.private;
-    // Random roulette result
+    // Random roulette spin result
     input r2 as u8.private;
     // Player bet number
     input r3 as u8.private;
