@@ -15,7 +15,7 @@ defmodule AleoRouletteApiWeb.Router do
     end
 
     scope "/bets" do
-      post("/make/aleo", BetController, :make_with_aleo)
+      post("/make", BetController, :make_bet)
     end
   end
 end
