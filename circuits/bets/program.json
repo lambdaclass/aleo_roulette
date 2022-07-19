@@ -1,0 +1,10 @@
+{
+    "program": "bets.aleo",
+    "version": "0.0.0",
+    "description": "",
+    "development": {
+        "private_key": "APrivateKey1zkpGvuxnv2VN1TVEY9hKapJm7B5EQedScNBzFq3kXihcogg",
+        "address": "aleo1ljfzdypkggkzuvweyzat535r4kczzguyfmctwd67fm3vn6n9ggyqcx8tc7"
+    },
+    "license": "MIT"
+}
