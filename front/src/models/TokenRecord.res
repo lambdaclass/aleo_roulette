@@ -20,7 +20,7 @@ let default = {
 }
 
 let player_default = {
-  owner: "",
+  owner: "aleo10a2kkktd6zgm5kyy53aj7hxyk2rkulkntexg0qwxhywjqvu4cqxs29ggqs",
   gates: 0,
   amount: 50,
 }
