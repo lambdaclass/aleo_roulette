@@ -36,7 +36,7 @@ function make_bet:
     
     //r6 is true if player wins
     //Here we should use is.eq, but it doesn't work yet
-    gte r3 r2 into r6;
+    is.eq r3 r2 into r6;
 
     //Reward
     mul r4 35u64 into r7;
