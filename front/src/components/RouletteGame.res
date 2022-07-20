@@ -5,7 +5,7 @@ let make = () => {
   let (rotateValue, setRotateValue) = React.useState(_ => 356)
   let (playing, setPlay) = React.useState(_ => false)
   let (bet, setBet) = React.useState(_ => -1)
-  let (betToken, setBetToken) = React.useState(() => 0.)
+  let (betToken, setBetToken) = React.useState(() => 1.)
   let (rouletteNumber, setRouletteNumber) = React.useState(_ => -1)
   let (win, setWin) = React.useState(_ => false)
 
@@ -30,9 +30,12 @@ let make = () => {
       )
       ->Promise.then(Fetch.Response.json)
       ->Promise.then(json => TokenRecord.decode(json)->Promise.resolve)
-      ->Promise.then(casino_token_record =>
-        setCasinoRecord(_prev => casino_token_record)->Promise.resolve
-      )
+      ->Promise.then(casino_token_record => {
+        setCasinoRecord(_prev => casino_token_record)
+        setPlay(_ => false)
+        Promise.resolve()
+      })
+
     None
   })
 
@@ -77,6 +80,7 @@ let make = () => {
   ]
 
   let (transactions, _setTransactions) = React.useState(_ => [])
+
   let handleInputChange = event => {
     let value = ReactEvent.Form.currentTarget(event)["value"]
     setBetToken(_ =>
@@ -90,11 +94,6 @@ let make = () => {
   let handleBet = betValue => {
     setBet(_prev => betValue)
   }
-
-  React.useEffect1(() => {
-    Js.Console.log(bet)
-    None
-  }, [bet])
 
   let handleSpin = _evt => {
     let payload = Js.Dict.fromArray([
@@ -171,16 +170,6 @@ let make = () => {
     }
     None
   }, [spinResult])
-
-  React.useEffect1(() => {
-    Js.Console.log(playing)
-    None
-  }, [playing])
-
-  React.useEffect1(() => {
-    Js.Console.log(`bet: ${bet->Belt.Int.toString}`)
-    None
-  }, [bet])
 
   React.useEffect1(() => {
     Js.Console.log(`betToken: ${betToken->Belt.Float.toString}`)
