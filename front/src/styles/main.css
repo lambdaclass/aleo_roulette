@@ -159,6 +159,7 @@ input {
 
 .roulette-container {
   position: relative;
+  overflow: hidden;
 }
 .roulette {
   display: block;
@@ -188,7 +189,7 @@ input {
   -ms-transition: all 5s ease-in-out;
   -o-transition: all 5s ease-in-out;
 }
-.ball:after {
+.ball.show:after {
   content: " ";
   position: absolute;
   top: 20%;
@@ -287,6 +288,9 @@ input {
   cursor: pointer;
   border: 1px solid #fff;
 }
+.roulette-number-container {
+  position: relative;
+}
 .winner-number {
   position: absolute;
   top: 50%;
@@ -342,23 +346,23 @@ input {
   }
 }
 .rotate-roulette {
-  animation: rotation-roulette 4900ms ease-in-out;
-  -webkit-animation: rotation-roulette 4900ms ease-in-out;
+  animation: rotation-roulette 4900ms linear 4;
+  -webkit-animation: rotation-roulette 4900ms linear 4;
 }
 @keyframes rotation-roulette {
   0% {
-    transform: translateX(-50%) rotate(0deg);
-    -webkit-transform: translateX(-50%) rotate(0deg);
-    -moz-transform: translateX(-50%) rotate(0deg);
-    -ms-transform: translateX(-50%) rotate(0deg);
-    -o-transform: translateX(-50%) rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
   }
   100% {
-    transform: translateX(-50%) rotate(-360deg);
-    -webkit-transform: translateX(-50%) rotate(-360deg);
-    -moz-transform: translateX(-50%) rotate(-360deg);
-    -ms-transform: translateX(-50%) rotate(-360deg);
-    -o-transform: translateX(-50%) rotate(-360deg);
+    transform: rotate(-360deg);
+    -webkit-transform: rotate(-360deg);
+    -moz-transform: rotate(-360deg);
+    -ms-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
   }
 }
 .selected {

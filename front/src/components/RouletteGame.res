@@ -4,6 +4,7 @@
 let make = () => {
   let (rotateValue, setRotateValue) = React.useState(_ => 356)
   let (playing, setPlay) = React.useState(_ => false)
+  let (spin, setSpin) = React.useState(_ => false)
   let (bet, setBet) = React.useState(_ => -1)
   let (betToken, setBetToken) = React.useState(() => 1.)
   let (rouletteNumber, setRouletteNumber) = React.useState(_ => -1)
@@ -68,8 +69,8 @@ let make = () => {
     65,
     346,
     104,
+    308,
     288,
-    284,
     143,
     249,
     6,
@@ -96,6 +97,7 @@ let make = () => {
   }
 
   let handleSpin = _evt => {
+    setSpin(_prev => true)
     let payload = Js.Dict.fromArray([
       (
         "casino_token_record",
@@ -176,9 +178,16 @@ let make = () => {
     None
   }, [betToken])
 
+  React.useEffect1(() => {
+    setTimeout(() => {
+      setSpin(_prev => false)
+    }, 30000)
+    None
+  }, [playing])
+
   <div className="roulette-table">
     <Win playing win />
-    <Roulette playing rotateValue rouletteNumber />
+    <Roulette spin playing rotateValue rouletteNumber />
     <Table bet handleBet playing />
     <div className="action-panel">
       <div className="dropdown">
@@ -190,33 +199,20 @@ let make = () => {
         {React.string("Your account")}
         <img src="/images/arrow.svg" />
         <div className="info-container">
-          <div>
-            <span> {React.string("Address: ")} </span>
-            {playerRecord.owner->React.string}
-          </div>
-          <div>
-            <span> {React.string("Tokens: ")} </span>
-            {playerRecord.amount->React.int}
-          </div>
+          <div> <span> {React.string("Address: ")} </span> {playerRecord.owner->React.string} </div>
+          <div> <span> {React.string("Tokens: ")} </span> {playerRecord.amount->React.int} </div>
         </div>
       </div>
       <div className="dropdown">
         {React.string("Casino's account")}
         <img src="/images/arrow.svg" />
         <div className="info-container">
-          <div>
-            <span> {React.string("Address: ")} </span>
-            {casinoRecord.owner->React.string}
-          </div>
-          <div>
-            <span> {React.string("Tokens: ")} </span>
-            {casinoRecord.amount->React.int}
-          </div>
+          <div> <span> {React.string("Address: ")} </span> {casinoRecord.owner->React.string} </div>
+          <div> <span> {React.string("Tokens: ")} </span> {casinoRecord.amount->React.int} </div>
         </div>
       </div>
       <div className="token-button-container">
-        <Token handleInputChange betToken />
-        <Button handleClick=handleSpin playing />
+        <Token handleInputChange betToken /> <Button handleClick=handleSpin playing />
       </div>
     </div>
   </div>
