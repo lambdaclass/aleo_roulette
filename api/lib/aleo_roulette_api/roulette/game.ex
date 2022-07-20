@@ -36,7 +36,10 @@ defmodule AleoRouletteApi.Roulette.Game do
         player_amount_of_available_tokens
       )
 
-    {casino_token_record, player_token_records, roulette_random_result}
+    case mod_probe do
+      true -> {:ok, casino_token_record, player_token_records, roulette_random_result}
+      false -> {:error, "The spinning result verification failed"}
+    end
   end
 
   defp get_last_6_bits_input_for_aleo(hash) do
