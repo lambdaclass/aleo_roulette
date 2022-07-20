@@ -17,6 +17,14 @@ defmodule AleoRouletteApi.Aleo.OutputParser do
     |> ignore(eventually(string(@param_prefix)))
     |> integer(min: 1, max: 100)
 
+  aleo_psd_bits_mod_output =
+    aleo_output_section
+    |> ignore(eventually(string(@param_prefix)))
+    |> choice([
+      string("true"),
+      string("false")
+    ])
+
   aleo_mint_casino_token_record_output =
     aleo_output_section
     |> ignore(eventually(string(@param_prefix)))
@@ -45,6 +53,7 @@ defmodule AleoRouletteApi.Aleo.OutputParser do
     |> integer(min: 1, max: 21)
 
   defparsec(:parsec_psd_hash, aleo_psd_hash_output)
+  defparsec(:psd_bits_mod, aleo_psd_bits_mod_output)
   defparsec(:parsec_mint_casino_token_record, aleo_mint_casino_token_record_output)
   defparsec(:parsec_make_bet, aleo_make_bet_output)
 
@@ -54,6 +63,17 @@ defmodule AleoRouletteApi.Aleo.OutputParser do
       |> parsec_psd_hash()
 
     hash
+  end
+
+  def get_psd_bits_mod(aleo_output) do
+    {:ok, [bool], _, _, _, _} =
+      aleo_output
+      |> psd_bits_mod()
+
+    case bool do
+      "true" -> true
+      "false" -> false
+    end
   end
 
   def get_mint_casino_token_record(aleo_output) do

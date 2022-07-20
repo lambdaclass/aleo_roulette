@@ -12,6 +12,19 @@ defmodule AleoRouletteApi.Aleo.IO do
     |> OutputParser.get_pds_hash()
   end
 
+  def gen_psd_mod_verification({[_b5, _b4, _b3, _b2, _b1, _b0] = bits_array, expected_mod}) do
+    bits_string_array =
+      bits_array
+      |> Enum.map(fn x -> "#{x}" end)
+
+    {output, _exit_code} =
+      run_bets_circuit(:psd_bits_mod, {bits_string_array, "#{expected_mod}u16"})
+
+    output
+    |> IO.inspect()
+    |> OutputParser.get_psd_bits_mod()
+  end
+
   def gen_casino_token(address, amount) do
     {output, _exit_code} =
       run_bets_circuit(
@@ -61,6 +74,16 @@ defmodule AleoRouletteApi.Aleo.IO do
     System.cmd("sh", [
       "-c",
       "cd #{@bets_circuit_path} && #{@aleo_path} run psd_hash #{seed}"
+    ])
+  end
+
+  defp run_bets_circuit(
+         :psd_bits_mod,
+         {[b5, b4, b3, b2, b1, b0], expected_mod} = _params
+       ) do
+    System.cmd("sh", [
+      "-c",
+      "cd #{@bets_circuit_path} && #{@aleo_path} run psd_bits_mod #{b5} #{b4} #{b3} #{b2} #{b1} #{b0} #{expected_mod}"
     ])
   end
 
