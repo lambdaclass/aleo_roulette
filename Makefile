@@ -2,27 +2,25 @@ PORT_API = 5000
 PORT_FRONT = 4000
 
 init:
-	cargo install leo-lang
 	git submodule init aleo
 	git submodule update --remote --merge
-	cd aleo && git pull origin main
 	cd aleo && cargo build --release
 	mix local.hex && mix archive.install hex phx_new
-	cd api && mix deps.get && mix deps.compile
-	npm install --prefix front --silent
   
-nix_shell:
+nix:
 	nix-shell
 
 build:
 	@echo "👷 * Aleo Roulette building process started *"
-	@echo "========================================="
-	@echo "🔨 1/2 Building the Frontend..."
+	@echo "======================================================"
+	@echo "🔨 1/3 Building the Aleo Circuits..."
+	cd circuits/bets && aleo build
+	@echo "🔨 2/3 Building the API..."
+	cd api && mix deps.get && mix deps.compile && mix compile
+	@echo "🔨 3/3 Building the Frontend..."
 	npm install --prefix front --silent 
 	npm run re:build --prefix front
-	@echo "🔨 2/2 Building the API..."
-	cd api && mix deps.get && mix deps.compile && mix compile
-	@echo "==================================================="
+	@echo "======================================================"
 	@echo "✅ Aleo Roulette building process finished sucessfully!"
 
 run_front:
