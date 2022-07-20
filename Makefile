@@ -3,7 +3,7 @@ PORT_FRONT = 4000
 
 init:
 	git submodule init aleo
-	git submodule update --remote --merge
+	git submodule update
 	cd aleo && cargo build --release
 	mix local.hex && mix archive.install hex phx_new
   
