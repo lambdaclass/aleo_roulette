@@ -8,11 +8,13 @@ defmodule AleoRouletteApi.Aleo.IO do
     {output, _exit_code} = run_bets_circuit(:psd_hash, %{seed: "#{seed}u32"})
 
     output
-    |> IO.inspect()
+    |> IO.puts()
+
+    output
     |> OutputParser.get_pds_hash()
   end
 
-  def gen_psd_mod_verification({[_b5, _b4, _b3, _b2, _b1, _b0] = bits_array, expected_mod}) do
+  def gen_psd_mod_verification([_b5, _b4, _b3, _b2, _b1, _b0] = bits_array, expected_mod) do
     bits_string_array =
       bits_array
       |> Enum.map(fn x -> "#{x}" end)
@@ -21,7 +23,9 @@ defmodule AleoRouletteApi.Aleo.IO do
       run_bets_circuit(:psd_bits_mod, {bits_string_array, "#{expected_mod}u16"})
 
     output
-    |> IO.inspect()
+    |> IO.puts()
+
+    output
     |> OutputParser.get_psd_bits_mod()
   end
 
@@ -33,7 +37,9 @@ defmodule AleoRouletteApi.Aleo.IO do
       )
 
     output
-    |> IO.inspect()
+    |> IO.puts()
+
+    output
     |> OutputParser.get_mint_casino_token_record()
   end
 
@@ -63,7 +69,9 @@ defmodule AleoRouletteApi.Aleo.IO do
       )
 
     output
-    |> IO.inspect()
+    |> IO.puts()
+
+    output
     |> OutputParser.get_make_bet()
   end
 

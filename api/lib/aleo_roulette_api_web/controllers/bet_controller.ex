@@ -31,8 +31,6 @@ defmodule AleoRouletteApiWeb.BetController do
         player_amount_of_available_tokens
       )
 
-    IO.inspect(bet_result)
-
     case bet_result do
       {:ok, casino_token_record, player_token_record, spin_result} ->
         conn

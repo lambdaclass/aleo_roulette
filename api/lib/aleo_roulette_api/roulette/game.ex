@@ -21,10 +21,10 @@ defmodule AleoRouletteApi.Roulette.Game do
     roulette_random_result = aleo_hash |> mod_of_last_6_bits()
 
     mod_probe =
-      AleoIO.gen_psd_mod_verification({
+      AleoIO.gen_psd_mod_verification(
         aleo_hash |> get_last_6_bits_input_for_aleo(),
         roulette_random_result
-      })
+      )
 
     {casino_token_record, player_token_records} =
       AleoIO.gen_make_bet(
