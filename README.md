@@ -26,10 +26,6 @@ To run the Frontend:
 
 `make run_front`
 
-to run the api:
-
-`make run_api`
-
 if you need to update the aleo to the latest code available on the main branch of its repo:
 
 `make update_aleo`
