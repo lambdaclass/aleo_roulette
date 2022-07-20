@@ -1,4 +1,4 @@
 type t = {
-  token: string,
+  token: float,
   address: string,
 }
