@@ -1,9 +1,9 @@
 @react.component
-let make = (~playing, ~rotateValue, ~rouletteNumber) => {
-  let className = "roulette " ++ (playing ? "rotate-roulette" : "")
-  <div className="roulette-container">
-    <img className src="/images/roulette.svg" />
-    <Ball playing rotateValue />
-    <RouletteNumber playing rouletteNumber />
+let make = (~spin, ~playing, ~rotateValue, ~spinResult) => {
+  <div className="roulette-number-container">
+    <div className={`roulette-container rotate-roulette ${spin ? "" : "pause-animation"}`}>
+      <img className="roulette" src="/images/roulette.svg" /> <Ball playing rotateValue spin />
+    </div>
+    <RouletteNumber spin spinResult />
   </div>
 }

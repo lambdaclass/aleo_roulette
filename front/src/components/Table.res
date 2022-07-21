@@ -7,8 +7,15 @@ let make = (~bet, ~handleBet, ~playing) => {
       <Bettable bettable=number active={bet == number} handleBet />
     </div>
   })
-  <div
-    className="table" style={ReactDOM.Style.make(~pointerEvents=playing ? "none" : "initial", ())}>
-    {React.array(content)}
+  <div className="table-wrapper">
+    // This should be changed to conditional rendering
+    <div className="current-bet" style={ReactDOM.Style.make(~display=bet == -1 ? "none" : "", ())}>
+      {"Current bet: "->React.string} <span> {bet->React.int} </span>
+    </div>
+    <div
+      className="table"
+      style={ReactDOM.Style.make(~pointerEvents=playing ? "none" : "initial", ())}>
+      {React.array(content)}
+    </div>
   </div>
 }

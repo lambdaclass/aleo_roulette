@@ -1,13 +1,10 @@
 @react.component
-let make = (~handleClick, ~playing) => {
+let make = (~handleClick, ~spin, ~readyToPlay, ~bet) => {
+  let disabled = !readyToPlay || spin || bet == -1
   <button
-    className="spin"
+    className={`spin ${disabled ? "disabled" : ""} ${spin ? "spinning" : ""}`}
     onClick=handleClick
-    style={ReactDOM.Style.make(
-      ~pointerEvents=playing ? "none" : "initial",
-      ~opacity=playing ? "0" : "100%",
-      (),
-    )}>
-    {React.string("Spin")}
+    disabled>
+    {spin ? <img src="/images/loading.svg" /> : React.string("Spin")}
   </button>
 }

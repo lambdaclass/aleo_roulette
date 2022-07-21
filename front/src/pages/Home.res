@@ -2,8 +2,12 @@
 let make = () => {
   <div className="screen">
     <div className="headings">
-      <h1> {"ALEO ROULETTE"->React.string} </h1>
-      <h2> {"Network: Aleo Testnet3"->React.string} </h2>
+      <h1>
+        <img
+          src="https://assets-global.website-files.com/5e990b3bae81cf4a03433c58/5f347d008da2e477a3c61fca_Aleo-logo-white-p-500.png"
+        />
+        {"Roulette"->React.string}
+      </h1>
     </div>
     <RouletteGame />
   </div>
