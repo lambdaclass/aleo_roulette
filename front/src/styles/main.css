@@ -26,33 +26,33 @@ body {
   position: absolute;
   top: 0;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 h1 {
-  padding: 1rem;
-  background-color: var(--dark-background);
+  background-color: #191340;
   padding: 1rem 2rem;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
 }
-h2 {
-  margin: 0 2rem;
-  font-size: 1rem;
-  padding: 1rem;
-  font-weight: normal;
-  background-color: var(--transparent-gray);
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+h1 img {
+  height: 2rem;
+}
+.title {
+  font-size: 1.7rem;
+  padding: 1.5rem 1rem;
+  font-weight: 600;
 }
 .roulette-table {
   position: relative;
   min-height: 100vh;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  gap: 6rem;
 }
 .action-panel {
   width: 100%;
@@ -61,10 +61,22 @@ h2 {
   background-color: var(--dark-background);
   position: fixed;
   bottom: 0;
+  left: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 0.7fr 1fr;
   align-items: center;
   gap: 1rem;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+}
+.action-panel:not(.loading) {
+  opacity: 0;
+}
+.action-panel.loaded {
+  opacity: 1;
 }
 .action-info-panels {
   display: flex;
@@ -120,17 +132,28 @@ h2 {
 .info-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 2rem;
+  padding: 0rem 3rem;
+  flex-direction: column;
+  font-size: 1.2rem;
 }
 .info-container span {
-  color: gray;
+  color: rgb(216, 216, 216);
 }
-.transaction-container div {
+.info-container .title {
+  padding: 0 0 0.5rem;
+}
+.transaction-container .title {
   margin: 0.25rem 2rem 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+.transaction-container .list {
+  overflow-y: scroll;
+  height: 100%;
+  margin: 0 3rem;
 }
 .dropdown:hover {
   background-color: #1c144d;
@@ -138,9 +161,17 @@ h2 {
 .dropdown:hover .transaction-container {
   height: 40vh !important;
   overflow-y: auto;
+  display: grid;
+  grid-template-rows: 5rem 1fr 6rem;
 }
+.dropdown:hover .transaction-container:after {
+  content: "";
+  display: block;
+}
+
 .dropdown:hover .info-container {
   height: 8rem !important;
+  padding: 3rem 3rem 6rem;
 }
 .transaction {
   display: flex;
@@ -165,8 +196,16 @@ h2 {
   gap: 0.8rem;
 }
 .token-button-container .wrapper button {
-  padding: 1rem 2rem;
+  padding: 0.9rem 2rem 1.1rem;
   font-size: 2rem;
+  transition: padding 0s;
+  -webkit-transition: padding 0s;
+  -moz-transition: padding 0s;
+  -ms-transition: padding 0s;
+  -o-transition: padding 0s;
+}
+.token-button-container .wrapper button.spinning {
+  padding: 0.85rem 2rem 0.6rem;
 }
 .token-button-container .wrapper input[type="number"] {
   font-size: 2rem;
@@ -178,6 +217,7 @@ h2 {
 .token-button-container .wrapper .bet-input {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .token-button-container .wrapper .bet-input input.disabled {
   cursor: not-allowed;
@@ -268,8 +308,7 @@ input {
   cursor: pointer;
 }
 .spin.disabled {
-  background-color: #524890;
-  color: rgb(129, 120, 197);
+  background-color: #3f319b;
   cursor: not-allowed;
 }
 .table {
@@ -288,6 +327,7 @@ input {
 .table div:first-of-type div {
   color: #fff;
   background-color: #71c758 !important;
+  border: 1px solid transparent;
   width: 3.5rem;
   border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -441,6 +481,7 @@ input {
   -o-transform: translate(-50%, -50%);
 }
 .loading {
+  display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
@@ -448,9 +489,23 @@ input {
 }
 .network {
   text-align: right;
-  margin-right: 2rem;
+  margin-right: 4rem;
   font-size: 1.2rem;
   opacity: 0.7;
+}
+.table-wrapper {
+  position: relative;
+}
+.current-bet {
+  font-size: 1.7rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  position: absolute;
+  bottom: 100%;
+  text-transform: uppercase;
+}
+.current-bet span {
+  font-weight: 600;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

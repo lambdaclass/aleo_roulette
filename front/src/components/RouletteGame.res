@@ -192,25 +192,30 @@ let make = () => {
     // This should be changed to conditional rendering
     <div
       className="action-panel loading"
-      style={ReactDOM.Style.make(~display=readyToPlay ? "none" : "flex", ())}>
+      style={ReactDOM.Style.make(~opacity=readyToPlay ? "0" : "1", ())}>
       <img src="/images/loading.svg" /> {React.string("Loading Casino")}
     </div>
     <div
-      className="action-panel" style={ReactDOM.Style.make(~display=readyToPlay ? "" : "none", ())}>
+      className="action-panel loaded"
+      style={ReactDOM.Style.make(~opacity=readyToPlay ? "1" : "0", ())}>
       <div className="action-info-panels">
         <div className="dropdown">
           {React.string("Transactions")}
           <img src="/images/arrow.svg" />
-          <TransactionsList win transactions />
+          <TransactionsList transactions />
         </div>
         <div className="dropdown">
           {React.string("Your account")}
           <img src="/images/arrow.svg" />
           <div className="info-container">
             <div>
-              <span> {React.string("Address: ")} </span> {playerRecord.owner->React.string}
+              <div className="title"> {React.string("Address: ")} </div>
+              <span> {playerRecord.owner->React.string} </span>
             </div>
-            <div> <span> {React.string("Tokens: ")} </span> {playerRecord.amount->React.int} </div>
+            <div>
+              <div className="title"> {React.string("Tokens: ")} </div>
+              <span> {playerRecord.amount->React.int} </span>
+            </div>
           </div>
         </div>
         <div className="dropdown">
@@ -218,9 +223,13 @@ let make = () => {
           <img src="/images/arrow.svg" />
           <div className="info-container">
             <div>
-              <span> {React.string("Address: ")} </span> {casinoRecord.owner->React.string}
+              <div className="title"> {React.string("Address: ")} </div>
+              <span> {casinoRecord.owner->React.string} </span>
             </div>
-            <div> <span> {React.string("Tokens: ")} </span> {casinoRecord.amount->React.int} </div>
+            <div>
+              <div className="title"> {React.string("Tokens: ")} </div>
+              <span> {casinoRecord.amount->React.int} </span>
+            </div>
           </div>
         </div>
       </div>

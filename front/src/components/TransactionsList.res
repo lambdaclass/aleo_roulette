@@ -1,5 +1,5 @@
 @react.component
-let make = (~win, ~transactions: array<Transaction.t>) => {
+let make = (~transactions: array<Transaction.t>) => {
   let content = Belt.Array.map(transactions, transaction => {
     <div key=transaction.address className="transaction">
       <div id=transaction.address>
@@ -11,5 +11,8 @@ let make = (~win, ~transactions: array<Transaction.t>) => {
     </div>
   })
 
-  <div className="transaction-container"> {React.array(content)} </div>
+  <div className="transaction-container">
+    <div className="title"> {React.string("Transactions")} </div>
+    <div className="list"> {React.array(content)} </div>
+  </div>
 }
