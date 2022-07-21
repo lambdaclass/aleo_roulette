@@ -34,8 +34,7 @@ function make_bet:
     // Player amount of available tokens
     input r5 as u64.private;
     
-    //r6 is true if player wins
-    //Here we should use is.eq, but it doesn't work yet
+    //r6 is true if the player wins
     is.eq r3 r2 into r6;
 
     //Reward
