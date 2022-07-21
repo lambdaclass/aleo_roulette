@@ -63,6 +63,9 @@ h2 {
   align-items: center;
   gap: 1rem;
 }
+.action-info-panels {
+  display: flex;
+}
 .dropdown {
   margin: 1rem;
   padding: 1rem;
@@ -346,8 +349,8 @@ input {
   }
 }
 .rotate-roulette {
-  animation: rotation-roulette 4900ms linear 4;
-  -webkit-animation: rotation-roulette 4900ms linear 4;
+  animation: rotation-roulette 2s linear infinite forwards;
+  -webkit-animation: rotation-roulette 2s linear infinite forwards;
 }
 @keyframes rotation-roulette {
   0% {

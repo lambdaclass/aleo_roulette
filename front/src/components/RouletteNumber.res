@@ -1,6 +1,6 @@
 @react.component
-let make = (~playing, ~rouletteNumber) => {
+let make = (~spin, ~spinResult) => {
   <div className="winner-number">
-    {React.string(rouletteNumber == -1 || playing ? "" : Belt.Int.toString(rouletteNumber))}
+    {React.string(spinResult == -1 || spin ? "" : Belt.Int.toString(spinResult))}
   </div>
 }

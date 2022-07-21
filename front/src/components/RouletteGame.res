@@ -7,13 +7,13 @@ let make = () => {
   let (spin, setSpin) = React.useState(_ => false)
   let (bet, setBet) = React.useState(_ => -1)
   let (betToken, setBetToken) = React.useState(() => 1.)
-  let (rouletteNumber, setRouletteNumber) = React.useState(_ => -1)
   let (win, setWin) = React.useState(_ => false)
 
   // api integration
   let (casinoRecord, setCasinoRecord) = React.useState(_ => TokenRecord.default)
   let (playerRecord, setPlayerRecord) = React.useState(_ => TokenRecord.player_default)
   let (spinResult, setSpinResult) = React.useState(_ => 0)
+  let (readyToPlay, setReadyToPlay) = React.useState(_ => false)
 
   // POST CASINO INIT
   React.useEffect0(() => {
@@ -33,7 +33,8 @@ let make = () => {
       ->Promise.then(json => TokenRecord.decode(json)->Promise.resolve)
       ->Promise.then(casino_token_record => {
         setCasinoRecord(_prev => casino_token_record)
-        setPlay(_ => false)
+        setPlay(_ => false) // FIXME: why?
+        setReadyToPlay(_ => true)
         Promise.resolve()
       })
 
@@ -98,6 +99,8 @@ let make = () => {
 
   let handleSpin = _evt => {
     setSpin(_prev => true)
+    setRotateValue(_prev => 356)
+
     let payload = Js.Dict.fromArray([
       (
         "casino_token_record",
@@ -141,35 +144,20 @@ let make = () => {
   }
 
   React.useEffect1(() => {
-    let randomNumber = spinResult
-    let degreeSelected = degreesArray[randomNumber]
-    let circleMove = Js.Math.random_int(3, 6)
+    if spin {
+      let degreeSelected = degreesArray[spinResult]
+      let circleMove = Js.Math.random_int(3, 6)
 
-    let randomTransactionId =
-      "aleo1y90yg3yzs4g7q25f9nn8khuu00m8ysynxmcw8aca2d0phdx8dgpq4vw" ++
-      Belt.Int.toString(Js.Math.random_int(100, 5000))
-    let item: Transaction.t = {token: betToken, address: randomTransactionId}
-    let pushedValue = Js.Array2.push(transactions, item)
+      let randomTransactionId =
+        "aleo1y90yg3yzs4g7q25f9nn8khuu00m8ysynxmcw8aca2d0phdx8dgpq4vw" ++
+        Belt.Int.toString(Js.Math.random_int(100, 5000))
+      let item: Transaction.t = {token: betToken, address: randomTransactionId}
+      let _pushedValue = Js.Array2.push(transactions, item)
 
-    setRotateValue(_prev => rotateValue - 360 * circleMove)
-    setPlay(prev => !prev)
-    setTimeout(() => {
-      setPlay(prev => !prev)
       setRotateValue(_prev => degreeSelected + 360 * circleMove)
-    }, 1)
-
-    if !playing {
-      setPlay(prev => !prev)
-      setTimeout(() => {
-        setPlay(prev => !prev)
-        setRouletteNumber(_prev => randomNumber)
-        if randomNumber == bet * 1 {
-          setWin(_prev => true)
-        } else {
-          setWin(_prev => false)
-        }
-      }, 5000)
+      setPlay(_prev => true)
     }
+
     None
   }, [spinResult])
 
@@ -179,40 +167,55 @@ let make = () => {
   }, [betToken])
 
   React.useEffect1(() => {
-    setTimeout(() => {
-      setSpin(_prev => false)
-    }, 30000)
+    if playing {
+      setTimeout(() => {
+        setSpin(_prev => false)
+        setPlay(_prev => false)
+      }, 9000)
+
+      if spinResult == bet * 1 {
+        setWin(_prev => true)
+      } else {
+        setWin(_prev => false)
+      }
+    }
     None
   }, [playing])
 
   <div className="roulette-table">
     <Win playing win />
-    <Roulette spin playing rotateValue rouletteNumber />
+    <Roulette spin playing rotateValue spinResult />
     <Table bet handleBet playing />
     <div className="action-panel">
-      <div className="dropdown">
-        {React.string("Transactions")}
-        <img src="/images/arrow.svg" />
-        <TransactionsList win transactions />
-      </div>
-      <div className="dropdown">
-        {React.string("Your account")}
-        <img src="/images/arrow.svg" />
-        <div className="info-container">
-          <div> <span> {React.string("Address: ")} </span> {playerRecord.owner->React.string} </div>
-          <div> <span> {React.string("Tokens: ")} </span> {playerRecord.amount->React.int} </div>
+      <div className="action-info-panels">
+        <div className="dropdown">
+          {React.string("Transactions")}
+          <img src="/images/arrow.svg" />
+          <TransactionsList win transactions />
         </div>
-      </div>
-      <div className="dropdown">
-        {React.string("Casino's account")}
-        <img src="/images/arrow.svg" />
-        <div className="info-container">
-          <div> <span> {React.string("Address: ")} </span> {casinoRecord.owner->React.string} </div>
-          <div> <span> {React.string("Tokens: ")} </span> {casinoRecord.amount->React.int} </div>
+        <div className="dropdown">
+          {React.string("Your account")}
+          <img src="/images/arrow.svg" />
+          <div className="info-container">
+            <div>
+              <span> {React.string("Address: ")} </span> {playerRecord.owner->React.string}
+            </div>
+            <div> <span> {React.string("Tokens: ")} </span> {playerRecord.amount->React.int} </div>
+          </div>
+        </div>
+        <div className="dropdown">
+          {React.string("Casino's account")}
+          <img src="/images/arrow.svg" />
+          <div className="info-container">
+            <div>
+              <span> {React.string("Address: ")} </span> {casinoRecord.owner->React.string}
+            </div>
+            <div> <span> {React.string("Tokens: ")} </span> {casinoRecord.amount->React.int} </div>
+          </div>
         </div>
       </div>
       <div className="token-button-container">
-        <Token handleInputChange betToken /> <Button handleClick=handleSpin playing />
+        <Token handleInputChange betToken /> <Button handleClick=handleSpin spin readyToPlay />
       </div>
     </div>
   </div>

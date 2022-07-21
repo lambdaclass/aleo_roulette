@@ -1,11 +1,11 @@
 @react.component
-let make = (~handleClick, ~playing) => {
+let make = (~handleClick, ~spin, ~readyToPlay) => {
   <button
     className="spin"
     onClick=handleClick
     style={ReactDOM.Style.make(
-      ~pointerEvents=playing ? "none" : "initial",
-      ~opacity=playing ? "0" : "100%",
+      ~pointerEvents=!readyToPlay || spin ? "none" : "initial",
+      ~opacity=!readyToPlay || spin ? "0" : "100%",
       (),
     )}>
     {React.string("Spin")}
