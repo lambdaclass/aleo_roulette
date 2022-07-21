@@ -100,6 +100,7 @@ let make = () => {
   let handleSpin = _evt => {
     setSpin(_prev => true)
     setRotateValue(_prev => 356)
+    setWin(_prev => false)
 
     let payload = Js.Dict.fromArray([
       (
@@ -171,22 +172,31 @@ let make = () => {
       setTimeout(() => {
         setSpin(_prev => false)
         setPlay(_prev => false)
-      }, 9000)
 
-      if spinResult == bet * 1 {
-        setWin(_prev => true)
-      } else {
-        setWin(_prev => false)
-      }
+        if spinResult == bet {
+          setWin(_prev => true)
+        }
+      }, 7000)
     }
     None
   }, [playing])
 
+  let handleCloseWin = _ => {
+    setWin(_prev => false)
+  }
+
   <div className="roulette-table">
-    <Win playing win />
+    <Win win handleCloseWin />
     <Roulette spin playing rotateValue spinResult />
     <Table bet handleBet playing />
-    <div className="action-panel">
+    // This should be changed to conditional rendering
+    <div
+      className="action-panel loading"
+      style={ReactDOM.Style.make(~display=readyToPlay ? "none" : "flex", ())}>
+      <img src="/images/loading.svg" /> {React.string("Loading Casino")}
+    </div>
+    <div
+      className="action-panel" style={ReactDOM.Style.make(~display=readyToPlay ? "" : "none", ())}>
       <div className="action-info-panels">
         <div className="dropdown">
           {React.string("Transactions")}
@@ -215,8 +225,12 @@ let make = () => {
         </div>
       </div>
       <div className="token-button-container">
-        <Token handleInputChange betToken /> <Button handleClick=handleSpin spin readyToPlay />
+        <div className="wrapper">
+          <Token handleInputChange betToken spin readyToPlay bet />
+          <Button handleClick=handleSpin spin readyToPlay bet />
+        </div>
       </div>
+      <div className="network"> {"Network: Aleo Testnet3"->React.string} </div>
     </div>
   </div>
 }

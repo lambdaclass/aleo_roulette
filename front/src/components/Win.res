@@ -1,5 +1,8 @@
 @react.component
-let make = (~playing, ~win) => {
+let make = (~win, ~handleCloseWin) => {
   let className = "win-txt " ++ (win ? "show" : "")
-  <div className> <p> {React.string(!playing && win ? "YOU WIN! " : "")} </p> </div>
+  <div className>
+    {React.string("YOU WIN!")}
+    <button className="spin" onClick=handleCloseWin> {React.string("Close")} </button>
+  </div>
 }
