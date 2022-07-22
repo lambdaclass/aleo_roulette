@@ -1,0 +1,10 @@
+{
+    "program": "array_add.aleo",
+    "version": "0.0.0",
+    "description": "",
+    "development": {
+        "private_key": "APrivateKey1zkpBK913EGiBfwHAB3pmsiuaSECuxeuhDjp1MWvSvNdWDSG",
+        "address": "aleo1p38ru20e93tjjed5sd9r5zz8svzg8t0658cfzc9zhqau2z0rlgrshaf65c"
+    },
+    "license": "MIT"
+}
