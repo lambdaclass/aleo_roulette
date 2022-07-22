@@ -13,7 +13,8 @@ defmodule AleoRouletteApi.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: AleoRouletteApi.PubSub},
       # Start the Endpoint (http/https)
-      AleoRouletteApiWeb.Endpoint
+      AleoRouletteApiWeb.Endpoint,
+      AleoRouletteApi.Roulette.SpinCounter
       # Start a worker by calling: AleoRouletteApi.Worker.start_link(arg)
       # {AleoRouletteApi.Worker, arg}
     ]
