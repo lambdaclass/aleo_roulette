@@ -5,7 +5,7 @@ defmodule AleoRouletteApiWeb.BetController do
   def make_bet(conn, %{
         "casino_token_record" => %{
           "owner" => casino_address,
-          "gates" => _casino_gates,
+          "gates" => casino_gates,
           "amount" => casino_amount
         },
         "player_token_record" => %{
@@ -13,7 +13,6 @@ defmodule AleoRouletteApiWeb.BetController do
           "gates" => _player_gates,
           "amount" => player_amount_of_available_tokens
         },
-        "seed" => seed,
         "player_bet_number" => player_bet_number,
         "player_bet_amount" => player_bet_amount
       }) do
@@ -21,10 +20,9 @@ defmodule AleoRouletteApiWeb.BetController do
       Game.make_bet(
         %{
           owner: casino_address,
-          gates: _casino_gates,
+          gates: casino_gates,
           amount: casino_amount
         },
-        seed,
         player_address,
         player_bet_number,
         player_bet_amount,

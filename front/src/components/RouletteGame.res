@@ -119,7 +119,6 @@ let make = () => {
           ("amount", Js.Json.number(playerRecord.amount->Belt.Float.fromInt)),
         ])->Js.Json.object_,
       ),
-      ("seed", Js.Json.number(Js.Math.random_int(0, 37)->Belt.Float.fromInt)),
       ("player_bet_number", Js.Json.number(bet->Belt.Float.fromInt)),
       ("player_bet_amount", Js.Json.number(betToken)),
     ])

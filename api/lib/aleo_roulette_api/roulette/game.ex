@@ -1,5 +1,8 @@
 defmodule AleoRouletteApi.Roulette.Game do
   alias AleoRouletteApi.Aleo.IO, as: AleoIO
+  alias AleoRouletteApi.Roulette.SpinCounter
+
+  require Logger
 
   @roulette_posible_results 37
 
@@ -10,12 +13,15 @@ defmodule AleoRouletteApi.Roulette.Game do
 
   def make_bet(
         casino_token_record,
-        seed,
         player_address,
         player_bet_number,
         player_bet_amount,
         player_amount_of_available_tokens
       ) do
+    seed = SpinCounter.spin()
+
+    Logger.debug("Seed: #{seed}")
+
     aleo_hash = AleoIO.gen_poseidon_hash(seed)
 
     roulette_random_result = aleo_hash |> mod_of_last_6_bits()

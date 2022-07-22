@@ -1,5 +1,6 @@
 defmodule AleoRouletteApi.Aleo.IO do
   alias AleoRouletteApi.Aleo.OutputParser
+  require Logger
 
   @aleo_path "../../aleo/target/release/aleo"
   @bets_circuit_path "../circuits/bets"
@@ -7,8 +8,7 @@ defmodule AleoRouletteApi.Aleo.IO do
   def gen_poseidon_hash(seed) do
     {output, _exit_code} = run_bets_circuit(:psd_hash, %{seed: "#{seed}u32"})
 
-    output
-    |> IO.puts()
+    Logger.debug(output)
 
     output
     |> OutputParser.get_pds_hash()
@@ -22,8 +22,7 @@ defmodule AleoRouletteApi.Aleo.IO do
     {output, _exit_code} =
       run_bets_circuit(:psd_bits_mod, {bits_string_array, "#{expected_mod}u16"})
 
-    output
-    |> IO.puts()
+    Logger.debug(output)
 
     output
     |> OutputParser.get_psd_bits_mod()
@@ -36,8 +35,7 @@ defmodule AleoRouletteApi.Aleo.IO do
         %{address: address, amount: "#{amount}u64"}
       )
 
-    output
-    |> IO.puts()
+    Logger.debug(output)
 
     output
     |> OutputParser.get_mint_casino_token_record()
@@ -68,8 +66,7 @@ defmodule AleoRouletteApi.Aleo.IO do
         }
       )
 
-    output
-    |> IO.puts()
+    Logger.debug(output)
 
     output
     |> OutputParser.get_make_bet()
