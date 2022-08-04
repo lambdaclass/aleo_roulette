@@ -33,11 +33,11 @@ function make_bet(
     let player_balance: u64 = 0u64;
 
     if win {
-        casino_balance = casino.amount - bet_amount;
-        player_balance = balance + bet_amount;
+        casino_balance = casino.amount - reward;
+        player_balance = balance + reward;
     } else {
-        casino_balance = casino.amount + bet_amount;
-        player_balance = balance - bet_amount;
+        casino_balance = casino.amount + reward;
+        player_balance = balance - reward;
     }
 
     let casino_output: Token = Token {

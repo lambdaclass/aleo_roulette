@@ -17,7 +17,7 @@ player: address = aleo1ht2a9q0gsd38j0se4t9lsfulxgqrens2vgzgry3pkvs93xrrzu8s892zn
 spin: u8 = 0u8;
 bet: u8 = 0u8;
 bet_amount: u64 = 1u64;
-balance: u64 = 1u64;
+balance: u64 = 100u64;
 
 [psd_bits_mod]
 r0: bool = false;
