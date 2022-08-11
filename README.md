@@ -2,7 +2,7 @@
 
 Roulette web app with ZKP.
 
-## Disclaimer.
+## Disclaimer
 
 This is a toy example, the random number is generated in a deterministic way through a seed. The seed is equal to the roulette spin counter number. 
 
