@@ -1,3 +1,6 @@
 [submodule "aleo"]
 	path = aleo
 	url = https://github.com/AleoHQ/aleo
+[submodule "leo"]
+	path = leo
+	url = https://github.com/AleoHQ/leo
