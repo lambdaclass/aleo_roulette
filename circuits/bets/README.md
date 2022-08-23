@@ -8,7 +8,7 @@ aleo run mint_casino_token_record aleo1ljfzdypkggkzuvweyzat535r4kczzguyfmctwd67f
 ```
 
 ### Make winning bet
-params : [casino_token_record: token.record] [player_address: address] [roulette_random_result: u8] [player_bet_number: u8] [player_bet_amount: u64] [playey_amount_of_available_tokens: u64]
+params : [casino_token_record: token.record] [player_address: address] [roulette_random_result: u8] [player_bet_number: u8] [player_bet_amount: u64] [player_amount_of_available_tokens: u64]
 ```
 aleo run make_bet "{
   owner: aleo1ljfzdypkggkzuvweyzat535r4kczzguyfmctwd67fm3vn6n9ggyqcx8tc7.private,
@@ -18,7 +18,7 @@ aleo run make_bet "{
 ```
 
 ### Make a losing bet
-params : [casino_token_record: token.record] [player_address: address] [roulette_random_result: u8] [player_bet_number: u8] [player_bet_amount: u64] [playey_amount_of_available_tokens: u64]
+params : [casino_token_record: token.record] [player_address: address] [roulette_random_result: u8] [player_bet_number: u8] [player_bet_amount: u64] [player_amount_of_available_tokens: u64]
 ```
 aleo run make_bet "{
   owner: aleo1ljfzdypkggkzuvweyzat535r4kczzguyfmctwd67fm3vn6n9ggyqcx8tc7.private,
