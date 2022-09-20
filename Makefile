@@ -14,7 +14,7 @@ build:
 	@echo "👷 * Aleo Roulette building process started *"
 	@echo "======================================================"
 	@echo "🔨 1/3 Building the Aleo Circuits..."
-	cd circuits/bets && aleo clean && aleo build
+	cd circuits/bets && aleo clean && aleo build  && aleo run psd_hash 3u32
 	@echo "🔨 2/3 Building the API..."
 	cd api && mix deps.get && mix deps.compile && mix compile
 	@echo "🔨 3/3 Building the Frontend..."
