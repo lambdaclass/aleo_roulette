@@ -9,7 +9,13 @@ import Config
 config :aleo_roulette_api, AleoRouletteApiWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: System.get_env("PORT") || 4000],
+  http: [ip:
+    if System.get_env("DOCKER")=="true" do
+      {0, 0, 0, 0}
+    else
+      {127,0,0,1}
+    end,
+    port: System.get_env("PORT") || 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,

@@ -10,7 +10,14 @@ in
 
 mkShell {
   buildInputs = [
+    bash
     git
+    gnumake
+    openssl
+    pkg-config
+    rebar3
+    glibcLocales
+    python38
     beam.packages.erlangR23.elixir_1_12
     nixpkgs.rust-bin.stable."1.62.0".default
     nodejs-16_x

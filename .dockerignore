@@ -1,0 +1,9 @@
+/aleo/target
+/front/lib
+/front/node_modules
+/circuits/bets/build
+/api/_build
+/api/deps
+leo
+roulette
+Dockerfile

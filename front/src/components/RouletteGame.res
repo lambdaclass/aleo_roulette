@@ -1,4 +1,5 @@
 @val external setTimeout: (unit => unit, int) => unit = "setTimeout"
+@val @scope(("process","env")) external react_app_api_host: string = "REACT_APP_API_HOST"
 
 @react.component
 let make = () => {
@@ -21,7 +22,7 @@ let make = () => {
 
     let _ =
       Fetch.fetchWithInit(
-        "http://localhost:5000/api/records/token/casino",
+        `${react_app_api_host}/api/records/token/casino`,
         Fetch.RequestInit.make(
           ~method_=Post,
           ~body=payload->Js.Json.object_->Js.Json.stringify->Fetch.BodyInit.make,
@@ -125,7 +126,7 @@ let make = () => {
 
     let _ =
       Fetch.fetchWithInit(
-        "http://localhost:5000/api/bets/make",
+        `${react_app_api_host}/api/bets/make`,
         Fetch.RequestInit.make(
           ~method_=Post,
           ~body=payload->Js.Json.object_->Js.Json.stringify->Fetch.BodyInit.make,
