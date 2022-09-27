@@ -1,4 +1,4 @@
-job "explorer_app" {
+job "roulette_app" {
   datacenters = ["dc1"]
 
   group "roulette_app" {
@@ -16,9 +16,13 @@ job "explorer_app" {
     }
 
     network {
-      port "roulette" {
+      port "roulette_back" {
+        to           = 3000
+        host_network = "public"
+      }
+      port "roulette_front" {
         to           = 4000
-        host_network = "private"
+        host_network = "public"
       }
     }
 
@@ -26,31 +30,25 @@ job "explorer_app" {
       driver = "docker"
 
       config {
-        #image = "docker.cluster.entropy1729.com/aleo_roulette:latest"
-        image = "docker.cluster.entropy1729.com/aleo_roulette:${IMAGE_VERSION}"
+        image = "docker.cluster.entropy1729.com/aleo_roulette:latest"
+        #image = "docker.cluster.entropy1729.com/aleo_roulette:${IMAGE_VERSION}"
 
         force_pull = true
 
         labels { group = "roulette" }
 
-        port_map {
-          http = 4000
-        }
-
-        ports = ["roulette"]
+        ports = ["roulette_front", "roulette_back"]
       }
 
-      template {
-       # SECRET_KEY_BASE="{{with secret "secret/data/phoenix"}}{{.Data.data.secret_key_base}}{{end}}"
-        data = <<EOH
-            SECRET_KEY_BASE="{{with secret "secret/data/phoenix"}}{{.Data.data.secret_key_base}}{{end}}"
-            PHX_HOST="roulette.cluster.entropy1729.com"
-            EOH
-
-        destination = "secrets/file.env"
-        env         = true
+      env {
+        REACT_APP_API_HOST = "https://api-roulette.cluster.entropy1729.com"
       }
 
+      # resource config
+      resources {
+        cpu    = 1024
+        memory = 8192
+      }
 
       service {
         name = "${TASK}"
@@ -61,11 +59,30 @@ job "explorer_app" {
         ]
 
         address_mode = "host"
-        port         = "roulette"
+        port         = "roulette_front"
 
         check {
           type     = "tcp"
-          port     = "roulette"
+          port     = "roulette_front"
+          interval = "10s"
+          timeout  = "3s"
+        }
+      }
+
+      service {
+        name = "${TASK}-back"
+        tags = [
+          "urlprefix-api-roulette.cluster.entropy1729.com/",
+          # Tells Fabio to redirect http to https
+          "urlprefix-api-roulette.cluster.entropy1729.com:80/ redirect=301,https://api-roulette.cluster.entropy1729.com$path"
+        ]
+
+        address_mode = "host"
+        port         = "roulette_back"
+
+        check {
+          type     = "tcp"
+          port     = "roulette_back"
           interval = "10s"
           timeout  = "3s"
         }
