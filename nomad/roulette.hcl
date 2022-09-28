@@ -30,8 +30,8 @@ job "roulette_app" {
       driver = "docker"
 
       config {
-        image = "docker.cluster.entropy1729.com/aleo_roulette:latest"
-        #image = "docker.cluster.entropy1729.com/aleo_roulette:${IMAGE_VERSION}"
+        #image = "docker.cluster.entropy1729.com/aleo_roulette:latest"
+        image = "docker.cluster.entropy1729.com/aleo_roulette:${IMAGE_VERSION}"
 
         force_pull = true
 
