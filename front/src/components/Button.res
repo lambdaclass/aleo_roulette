@@ -1,6 +1,19 @@
 @react.component
-let make = (~handleClick, ~spin, ~readyToPlay, ~bet) => {
-  let disabled = !readyToPlay || spin || bet == -1
+let make = (
+  ~handleClick,
+  ~betToken,
+  ~playerRecordAmount,
+  ~casinoRecordAmount,
+  ~spin,
+  ~readyToPlay,
+  ~bet,
+) => {
+  let disabled =
+    !readyToPlay ||
+    spin ||
+    bet == -1 ||
+    Belt.Float.toInt(betToken) * 39 > playerRecordAmount ||
+    Belt.Float.toInt(betToken) * 39 > casinoRecordAmount
   <button
     className={`spin ${disabled ? "disabled" : ""} ${spin ? "spinning" : ""}`}
     onClick=handleClick
