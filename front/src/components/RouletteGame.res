@@ -1,5 +1,5 @@
 @val external setTimeout: (unit => unit, int) => unit = "setTimeout"
-@val @scope(("process","env")) external react_app_api_host: string = "REACT_APP_API_HOST"
+@val @scope(("process", "env")) external react_app_api_host: string = "REACT_APP_API_HOST"
 
 @react.component
 let make = () => {
@@ -184,6 +184,9 @@ let make = () => {
   let handleCloseWin = _ => {
     setWin(_prev => false)
   }
+  let amount =
+    Belt.Float.toInt(betToken) * 39 > playerRecord.amount ||
+      Belt.Float.toInt(betToken) * 39 > casinoRecord.amount
 
   <div className="roulette-table">
     <Win win handleCloseWin />
@@ -234,9 +237,17 @@ let make = () => {
         </div>
       </div>
       <div className="token-button-container">
-        <div className="wrapper">
+        <div className={`wrapper ${amount ? "warning" : "warning-hide"}`}>
           <Token handleInputChange betToken spin readyToPlay bet />
-          <Button handleClick=handleSpin spin readyToPlay bet />
+          <Button
+            handleClick=handleSpin
+            betToken
+            playerRecordAmount=playerRecord.amount
+            casinoRecordAmount=casinoRecord.amount
+            spin
+            readyToPlay
+            bet
+          />
         </div>
       </div>
       <div className="network"> {"Network: Aleo Testnet3"->React.string} </div>
