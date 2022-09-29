@@ -10,7 +10,6 @@ RUN nix-channel --update
 WORKDIR /aleo_roulette
 
 COPY . .
-#ADD universal.srs.trial.3747e59 /root/.aleo/resources/universal.srs.trial.3747e59
 RUN nix-shell --command "make init"
 RUN nix-shell --command "make build"
 
