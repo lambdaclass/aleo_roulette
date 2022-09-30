@@ -185,8 +185,8 @@ let make = () => {
     setWin(_prev => false)
   }
   let amount =
-    Belt.Float.toInt(betToken) * 39 > playerRecord.amount ||
-      Belt.Float.toInt(betToken) * 39 > casinoRecord.amount
+    Belt.Float.toInt(betToken) >= playerRecord.amount ||
+      Belt.Float.toInt(betToken) * 39 >= casinoRecord.amount
 
   <div className="roulette-table">
     <Win win handleCloseWin />
