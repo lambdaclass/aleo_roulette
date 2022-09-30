@@ -16,6 +16,7 @@ mkShell {
     openssl
     pkg-config
     rebar3
+    vim
     glibcLocales
     python38
     beam.packages.erlangR23.elixir_1_12

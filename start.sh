@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Run a circuit to force parameters dowloading and setup
-nix-shell --command  "cd circuits/bets && aleo clean && aleo build  && aleo run psd_hash 3u32"
-
 # Start API
 nix-shell --command "make run_api" &
   

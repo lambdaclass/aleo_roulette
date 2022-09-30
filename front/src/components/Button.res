@@ -12,8 +12,8 @@ let make = (
     !readyToPlay ||
     spin ||
     bet == -1 ||
-    Belt.Float.toInt(betToken) * 39 > playerRecordAmount ||
-    Belt.Float.toInt(betToken) * 39 > casinoRecordAmount
+    Belt.Float.toInt(betToken) >= playerRecordAmount ||
+    Belt.Float.toInt(betToken) * 35 >= casinoRecordAmount
   <button
     className={`spin ${disabled ? "disabled" : ""} ${spin ? "spinning" : ""}`}
     onClick=handleClick
