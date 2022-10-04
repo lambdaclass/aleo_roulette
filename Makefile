@@ -1,5 +1,6 @@
-PORT_API = 3000
-PORT_FRONT = 4000
+PORT_API?=3000
+PORT_FRONT?=4000
+REACT_APP_API_HOST?=http://localhost:3000
 
 init:
 	git submodule init aleo
@@ -27,7 +28,7 @@ build:
 
 run_front:
 	npm run re:build --prefix front
-	PORT=${PORT_FRONT} npm start --prefix front
+	PORT=${PORT_FRONT} REACT_APP_API_HOST=${REACT_APP_API_HOST} npm start --prefix front
 
 run_api:
 	cd api && PORT=${PORT_API} mix phx.server 

@@ -312,7 +312,7 @@ input {
   cursor: not-allowed;
 }
 .wrapper:after {
-  content: "You cannot bet this amount";
+  content: "You cannot bet more tokens than the ones you have , or an amount greater than the casino could pay you in case you win.";
   position: absolute;
   bottom: 100%;
   left: 0;

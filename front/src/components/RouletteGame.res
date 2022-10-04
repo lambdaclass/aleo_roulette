@@ -18,7 +18,7 @@ let make = () => {
 
   // POST CASINO INIT
   React.useEffect0(() => {
-    let payload = Js.Dict.fromArray([("amount", Js.Json.number(1000.))])
+    let payload = Js.Dict.fromArray([("amount", Js.Json.number(100000.))])
 
     let _ =
       Fetch.fetchWithInit(
@@ -186,7 +186,7 @@ let make = () => {
   }
   let amount =
     Belt.Float.toInt(betToken) >= playerRecord.amount ||
-      Belt.Float.toInt(betToken) * 39 >= casinoRecord.amount
+      Belt.Float.toInt(betToken) * 35 >= casinoRecord.amount
 
   <div className="roulette-table">
     <Win win handleCloseWin />
